@@ -1,0 +1,364 @@
+[
+ {
+  "name": "★ Karambit | Case Hardened",
+  "rarity": "Covert",
+  "category": "Knives",
+  "min": 0,
+  "max": 1,
+  "collections": [],
+  "crates": [
+   "CS:GO Weapon Case",
+   "eSports 2013 Case",
+   "Operation Bravo Case",
+   "CS:GO Weapon Case 2",
+   "eSports 2013 Winter Case",
+   "Winter Offensive Weapon Case",
+   "CS:GO Weapon Case 3",
+   "Operation Phoenix Weapon Case",
+   "eSports 2014 Summer Case",
+   "Operation Vanguard Weapon Case",
+   "Revolver Case"
+  ]
+ },
+ {
+  "name": "★ Karambit | Crimson Web",
+  "rarity": "Covert",
+  "category": "Knives",
+  "min": 0.06,
+  "max": 0.8,
+  "collections": [],
+  "crates": [
+   "CS:GO Weapon Case",
+   "eSports 2013 Case",
+   "Operation Bravo Case",
+   "CS:GO Weapon Case 2",
+   "eSports 2013 Winter Case",
+   "Winter Offensive Weapon Case",
+   "CS:GO Weapon Case 3",
+   "Operation Phoenix Weapon Case",
+   "eSports 2014 Summer Case",
+   "Operation Vanguard Weapon Case",
+   "Revolver Case"
+  ]
+ },
+ {
+  "name": "★ Karambit | Fade",
+  "rarity": "Covert",
+  "category": "Knives",
+  "min": 0,
+  "max": 0.08,
+  "collections": [],
+  "crates": [
+   "CS:GO Weapon Case",
+   "eSports 2013 Case",
+   "Operation Bravo Case",
+   "CS:GO Weapon Case 2",
+   "eSports 2013 Winter Case",
+   "Winter Offensive Weapon Case",
+   "CS:GO Weapon Case 3",
+   "Operation Phoenix Weapon Case",
+   "eSports 2014 Summer Case",
+   "Operation Vanguard Weapon Case",
+   "Revolver Case"
+  ]
+ },
+ {
+  "name": "★ Karambit | Rust Coat",
+  "rarity": "Covert",
+  "category": "Knives",
+  "min": 0.4,
+  "max": 1,
+  "collections": [],
+  "crates": [
+   "Chroma Case",
+   "Chroma 2 Case",
+   "Chroma 3 Case"
+  ]
+ },
+ {
+  "name": "★ Karambit | Tiger Tooth",
+  "rarity": "Covert",
+  "category": "Knives",
+  "min": 0,
+  "max": 0.08,
+  "collections": [],
+  "crates": [
+   "Chroma Case",
+   "Chroma 2 Case",
+   "Chroma 3 Case"
+  ]
+ },
+ {
+  "name": "AK-47 | Fire Serpent",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0.06,
+  "max": 0.76,
+  "collections": [
+   "The Bravo Collection"
+  ],
+  "crates": [
+   "Operation Bravo Case"
+  ]
+ },
+ {
+  "name": "AK-47 | Jaguar",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0,
+  "max": 1,
+  "collections": [
+   "The eSports 2014 Summer Collection"
+  ],
+  "crates": [
+   "eSports 2014 Summer Case"
+  ]
+ },
+ {
+  "name": "AK-47 | Wasteland Rebel",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0.05,
+  "max": 0.7,
+  "collections": [
+   "The Vanguard Collection"
+  ],
+  "crates": [
+   "Operation Vanguard Weapon Case"
+  ]
+ },
+ {
+  "name": "AUG | Chameleon",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0,
+  "max": 0.5,
+  "collections": [
+   "The Phoenix Collection"
+  ],
+  "crates": [
+   "Operation Phoenix Weapon Case"
+  ]
+ },
+ {
+  "name": "AWP | Asiimov",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0.18,
+  "max": 1,
+  "collections": [
+   "The Phoenix Collection"
+  ],
+  "crates": [
+   "Operation Phoenix Weapon Case"
+  ]
+ },
+ {
+  "name": "AWP | Lightning Strike",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0,
+  "max": 0.08,
+  "collections": [
+   "The Arms Deal Collection"
+  ],
+  "crates": [
+   "CS:GO Weapon Case"
+  ]
+ },
+ {
+  "name": "CZ75-Auto | Victoria",
+  "rarity": "Covert",
+  "category": "Pistols",
+  "min": 0,
+  "max": 0.75,
+  "collections": [
+   "The Arms Deal 3 Collection"
+  ],
+  "crates": [
+   "CS:GO Weapon Case 3"
+  ]
+ },
+ {
+  "name": "Desert Eagle | Golden Koi",
+  "rarity": "Covert",
+  "category": "Pistols",
+  "min": 0,
+  "max": 0.12,
+  "collections": [
+   "The Bravo Collection"
+  ],
+  "crates": [
+   "Operation Bravo Case"
+  ]
+ },
+ {
+  "name": "M4A1-S | Chantico's Fire",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0,
+  "max": 0.99,
+  "collections": [
+   "The Chroma 3 Collection"
+  ],
+  "crates": [
+   "Chroma 3 Case"
+  ]
+ },
+ {
+  "name": "M4A4 | Asiimov",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0.18,
+  "max": 1,
+  "collections": [
+   "The Winter Offensive Collection"
+  ],
+  "crates": [
+   "Winter Offensive Weapon Case"
+  ]
+ },
+ {
+  "name": "M4A4 | Bullet Rain",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0.02,
+  "max": 0.46,
+  "collections": [
+   "The eSports 2014 Summer Collection"
+  ],
+  "crates": [
+   "eSports 2014 Summer Case"
+  ]
+ },
+ {
+  "name": "M4A4 | Royal Paladin",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0,
+  "max": 0.8,
+  "collections": [
+   "The Revolver Case Collection"
+  ],
+  "crates": [
+   "Revolver Case"
+  ]
+ },
+ {
+  "name": "M4A4 | X-Ray",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0,
+  "max": 0.3,
+  "collections": [
+   "The eSports 2013 Winter Collection"
+  ],
+  "crates": [
+   "eSports 2013 Winter Case"
+  ]
+ },
+ {
+  "name": "P2000 | Fire Elemental",
+  "rarity": "Covert",
+  "category": "Pistols",
+  "min": 0,
+  "max": 0.6,
+  "collections": [
+   "The Vanguard Collection"
+  ],
+  "crates": [
+   "Operation Vanguard Weapon Case"
+  ]
+ },
+ {
+  "name": "P90 | Death by Kitty",
+  "rarity": "Covert",
+  "category": "SMGs",
+  "min": 0.08,
+  "max": 0.32,
+  "collections": [
+   "The eSports 2013 Collection"
+  ],
+  "crates": [
+   "eSports 2013 Case"
+  ]
+ },
+ {
+  "name": "PP-Bizon | Judgement of Anubis",
+  "rarity": "Covert",
+  "category": "SMGs",
+  "min": 0,
+  "max": 0.5,
+  "collections": [
+   "The Chroma 3 Collection"
+  ],
+  "crates": [
+   "Chroma 3 Case"
+  ]
+ },
+ {
+  "name": "R8 Revolver | Fade",
+  "rarity": "Covert",
+  "category": "Pistols",
+  "min": 0,
+  "max": 0.4,
+  "collections": [
+   "The Revolver Case Collection"
+  ],
+  "crates": [
+   "Revolver Case"
+  ]
+ },
+ {
+  "name": "Sawed-Off | The Kraken",
+  "rarity": "Covert",
+  "category": "Heavy",
+  "min": 0,
+  "max": 0.4,
+  "collections": [
+   "The Winter Offensive Collection"
+  ],
+  "crates": [
+   "Winter Offensive Weapon Case"
+  ]
+ },
+ {
+  "name": "SSG 08 | Blood in the Water",
+  "rarity": "Covert",
+  "category": "Rifles",
+  "min": 0.06,
+  "max": 0.2,
+  "collections": [
+   "The Arms Deal 2 Collection"
+  ],
+  "crates": [
+   "CS:GO Weapon Case 2"
+  ]
+ },
+ {
+  "name": "★ Karambit | Doppler (Phase 1)",
+  "rarity": "Covert",
+  "category": "Knives",
+  "min": 0,
+  "max": 0.08,
+  "collections": [],
+  "crates": [
+   "Chroma Case",
+   "Chroma 2 Case",
+   "Chroma 3 Case"
+  ]
+ },
+ {
+  "name": "★ Karambit | Doppler (Sapphire)",
+  "rarity": "Covert",
+  "category": "Knives",
+  "min": 0,
+  "max": 0.08,
+  "collections": [],
+  "crates": [
+   "Chroma Case",
+   "Chroma 2 Case",
+   "Chroma 3 Case"
+  ]
+ }
+]
