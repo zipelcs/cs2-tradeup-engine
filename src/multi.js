@@ -14,11 +14,12 @@ const af = c => +c.adj;
  * @param {object[]} items
  * @param {object} opts     as for maxfloat.solve
  * @param {number} [count]  how many to build (capped at 50)
+ * @param {boolean} [all]   Solve-all: keep going until the pool cannot make another (capped at 500)
  * @returns {{contracts:object[][], requested:number, capped:boolean, used:Set, leftovers:object[]}}
  */
-export function multiContract(items, opts, count = 5) {
+export function multiContract(items, opts, count = 5, all = false) {
   const requested = Math.max(1, count | 0);
-  const K = Math.min(50, requested);
+  const K = all ? 500 : Math.min(50, requested);
   const used = new Set(), taken = new Set(), res = [];
   for (let k = 0; k < K; k++) {
     const sel = solve(items.filter(it => !taken.has(it)), opts);
@@ -34,10 +35,14 @@ export function multiContract(items, opts, count = 5) {
   return {
     contracts: res,
     requested,
-    capped: requested > 50,
+    capped: all ? res.length === 500 : requested > 50,
     used,
     leftovers: items.filter(it => !taken.has(it)),
   };
 }
 
+/** Solve-all: the same loop until the pool runs out. */
+export function solveAll(items, opts) {
+  return multiContract(items, opts, 500, true);
+}
 

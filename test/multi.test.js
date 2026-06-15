@@ -23,4 +23,16 @@ test('xN is capped at 50 and says so', () => {
   assert.equal(r.contracts.length, 3);
 });
 
+test('Solve-all on the Chroma 3 pool: three contracts, then the pool runs out', () => {
+  const r = E.solveAll(chroma3(), { n: 5, objective: 'under', T });
+  assert.equal(r.contracts.length, 3);
+  assert.equal(r.leftovers.length, 2);
+  assert.deepEqual(r.contracts[0].map(x => x.id).sort(), ['c13', 'c14', 'c15', 'c16', 'c17']);
+});
+
+test('it is a sequential greedy: the first contract is the single-contract answer', () => {
+  const pool = synthetic(90, 15, 0, 0.3), opts = { n: 10, objective: 'under', T: 0.1 };
+  const one = E.solve(pool, opts), many = E.solveAll(pool, opts);
+  assert.deepEqual(many.contracts[0].map(x => x.id).sort(), one.map(x => x.id).sort());
+});
 
