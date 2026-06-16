@@ -36,3 +36,20 @@ test('it is a sequential greedy: the first contract is the single-contract answe
   assert.deepEqual(many.contracts[0].map(x => x.id).sort(), one.map(x => x.id).sort());
 });
 
+test('Diversify spreads a contract across collections inside the budget', () => {
+  const sel = synthetic(10, 16, 0.05, 0.10).map(x => ({ ...x, coll: 'A' }));
+  const cands = ['B', 'C', 'D', 'E'].flatMap((c, i) => synthetic(6, 40 + i, 0.02, 0.2).map(x => ({ ...x, coll: c })));
+  const before = E.stats(sel).sum, budget = 0.1;
+  const r = E.diversify(sel, cands, { objective: 'under', T: budget });
+  assert.ok(r.swaps >= 3 && r.collections >= 4);
+  assert.ok(E.stats(r.sel).sum <= budget * 10 + 1e-9);
+  assert.ok(r.sel.some(x => x.coll === 'A'), 'the original collection is never removed entirely');
+  assert.equal(new Set(r.sel).size, 10);
+  assert.ok(before <= budget * 10);
+});
+
+test('Diversify refuses a swap that breaks the cap', () => {
+  const sel = synthetic(10, 17, 0.09, 0.10).map(x => ({ ...x, coll: 'A' }));
+  const cands = synthetic(6, 50, 0.5, 0.9).map(x => ({ ...x, coll: 'B' }));
+  assert.equal(E.diversify(sel, cands, { objective: 'under', T: 0.1 }).swaps, 0);
+});

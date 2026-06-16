@@ -46,3 +46,58 @@ export function solveAll(items, opts) {
   return multiContract(items, opts, 500, true);
 }
 
+/**
+ * Diversify: spread a contract across more collections.
+ *
+ * Odds are per collection, so a contract from one collection can only produce that collection's
+ * outputs. Repeatedly take a slot from the most over-represented collection and swap it for the
+ * cheapest candidate from a collection not yet present, as long as the contract stays inside its
+ * float budget. The only copy of a collection is never removed. Greedy; one swap per pass.
+ *
+ * Items carry `coll` (their collection) and optionally `cost`. Without costs the tie-break is
+ * closeness to the target sum.
+ *
+ * @param {object[]} sel     the current contract
+ * @param {object[]} cands   swap candidates, each with coll and adj
+ * @param {{objective:string, T:number}} ctx
+ * @returns {{sel:object[], swaps:number, collections:number}}
+ */
+export function diversify(sel, cands, ctx) {
+  sel = sel.slice();
+  const n = sel.length, obj = ctx.objective || 'under', T = ctx.T * n;
+  let sum = sel.reduce((a, c) => a + af(c), 0);
+  const cost = c => (c.cost > 0 ? c.cost : 0);
+  const count = () => { const m = {}; for (const s of sel) if (s.coll) m[s.coll] = (m[s.coll] || 0) + 1; return m; };
+  const feasibleAfter = (oldAF, newAF) => {
+    const ns = sum - oldAF + newAF;
+    if (obj === 'none') return true;
+    if (obj === 'over') return ns >= T - 1e-9;
+    if (obj === 'exact') return Math.abs(ns - T) <= Math.abs(sum - T) + 1e-12;
+    return ns <= T + 1e-9;
+  };
+  const inSel = new Set(sel);
+  let swaps = 0, progress = true;
+  while (progress) {
+    progress = false;
+    const present = count();
+    const order = sel.map((_, i) => i).sort((a, b) => (present[sel[b].coll] || 0) - (present[sel[a].coll] || 0));
+    for (const i of order) {
+      const cur = sel[i];
+      if (cur.coll && (present[cur.coll] || 0) <= 1) continue;
+      let best = null;
+      for (const c of cands) {
+        if (!c.coll || inSel.has(c) || present[c.coll]) continue;
+        if (!feasibleAfter(af(cur), af(c))) continue;
+        if (!best || cost(c) < cost(best) ||
+          (cost(c) === cost(best) && Math.abs(sum - af(cur) + af(c) - T) < Math.abs(sum - af(cur) + af(best) - T))) best = c;
+      }
+      if (best) {
+        sum = sum - af(cur) + af(best);
+        inSel.delete(cur); inSel.add(best);
+        sel[i] = best; swaps++; progress = true;
+        break;
+      }
+    }
+  }
+  return { sel, swaps, collections: Object.keys(count()).length };
+}
