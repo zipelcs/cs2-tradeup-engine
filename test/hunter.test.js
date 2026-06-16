@@ -44,4 +44,9 @@ test('an impossible record says why', () => {
   assert.equal(E.huntSolve({ ...KNIFE, min: 0.06 }, 0.05, chroma3(), catalogue).ok, false);
 });
 
+test('lowest and highest modes take the extremes', () => {
+  const { cands } = E.huntCandidates(KNIFE, chroma3(), catalogue);
+  assert.deepEqual(E.huntPick(cands, 5, 1, { mode: 'lowest' }).map(x => x.id).sort(), ['c1', 'c2', 'c3', 'c4', 'c5']);
+  assert.deepEqual(E.huntPick(cands, 5, 1, { mode: 'highest' }).map(x => x.id).sort(), ['c13', 'c14', 'c15', 'c16', 'c17']);
+});
 

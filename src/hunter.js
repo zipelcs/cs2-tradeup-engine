@@ -53,10 +53,25 @@ export function huntCandidates(target, items, catalogue, opts = {}) {
  * @param {object[]} cands   from huntCandidates
  * @param {number} n
  * @param {number} T         the bar, as a mean adjusted float
- * @param {{preserve?:boolean}} [opts]
+ * @param {{preserve?:boolean, mode?:'beat'|'lowest'|'highest'}} [opts]
  */
 export function huntPick(cands, n, T, opts = {}) {
   const preserve = opts.preserve !== false;
+  if (opts.mode === 'highest' || opts.mode === 'lowest') {
+    // the extremes: the n highest or n lowest inputs, with one on-target input forced in
+    const low = opts.mode === 'lowest';
+    const pool = cands.slice().sort((a, b) => (low ? a.adj - b.adj : b.adj - a.adj));
+    if (pool.length < n) return null;
+    const sel = pool.slice(0, n);
+    if (!sel.some(c => c.on)) {
+      const ot = pool.filter(c => c.on)[0];
+      if (!ot) return null;
+      let wi = 0;
+      for (let i = 1; i < n; i++) if (!sel[i].on && (low ? sel[i].adj > sel[wi].adj : sel[i].adj < sel[wi].adj)) wi = i;
+      sel[wi] = ot;
+    }
+    return sel;
+  }
   if (!preserve) return lsPick(cands, n, T, 'under', 'cheap');
   const cap = T * n, ok = s => s <= cap + 1e-12, onCount = s => s.filter(c => c.on).length;
   const pool = cands.slice().sort((a, b) => a.adj - b.adj);
