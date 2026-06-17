@@ -19,4 +19,13 @@ test('exactCore gets closer than its seed', () => {
   assert.ok(Math.abs(E.stats(sel).sum - T) < 1e-4);
 });
 
+test('closestSum and the craftable pools of an inventory', () => {
+  const pools = E.buildPools(chroma3(), catalogue);
+  assert.equal(pools.length, 1);
+  assert.equal(pools[0].need, 5);
+  assert.equal(pools[0].inputs.length, 17);
+  assert.ok(pools[0].outs.some(o => o.name.includes('Karambit | Doppler')));
+  const sol = E.closestSum(pools[0].inputs, 5, 0.41666625);
+  assert.ok(Math.abs(sol.sum - 0.417471664) < 1e-6);
+});
 

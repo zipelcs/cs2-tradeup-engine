@@ -4,4 +4,5 @@ export * from './maxfloat.js';
 export * from './custom.js';
 export * from './multi.js';
 export * from './hunter.js';
+export * from './floatlab-constants.js';
 export * from './listing.js';
