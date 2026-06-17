@@ -98,3 +98,22 @@ export function totalCost(sel) {
   return sel.reduce((a, c) => a + ec(c), 0);
 }
 
+/**
+ * When a solve fails the threshold, name the single swap that would make it solvable: which input to
+ * replace and the adjusted float the replacement needs. Null when the threshold was reachable and the
+ * failure was elsewhere.
+ */
+export function lsSuggestFix(cands, n, T, dir) {
+  if (!cands || cands.length < n) return null;
+  const base = cands.slice().sort(dir === 'under' ? (a, b) => a.adj - b.adj : (a, b) => b.adj - a.adj);
+  const sel = base.slice(0, n);
+  if (!sel.some(c => c.on)) { const ot = base.filter(c => c.on)[0]; if (ot) sel[n - 1] = ot; }
+  const sum = sel.reduce((a, c) => a + c.adj, 0), mean = sum / n;
+  if (dir === 'under' ? mean <= T : mean >= T) return null;
+  const onN = sel.filter(c => c.on).length;
+  const sw = sel.filter(c => !(c.on && onN <= 1));
+  sw.sort((a, b) => (dir === 'under' ? b.adj - a.adj : a.adj - b.adj));
+  const blk = sw[0];
+  if (!blk) return null;
+  return { replace: blk, needAdj: Math.max(0, Math.min(1, T * n - (sum - blk.adj))), cmp: dir === 'under' ? '<=' : '>=' };
+}

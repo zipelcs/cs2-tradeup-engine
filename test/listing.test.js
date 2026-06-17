@@ -44,4 +44,11 @@ test('odds mode prefers on-target inputs', () => {
   assert.ok(odds.filter(c => c.on).length >= cheap.filter(c => c.on).length);
 });
 
+test('a failed solve names the single swap that would fix it', () => {
+  const c = listings().filter(x => x.adj > 0.1);
+  assert.equal(E.lsPick(c, 10, 0.1, 'under'), null);
+  const fix = E.lsSuggestFix(c, 10, 0.1, 'under');
+  assert.ok(fix && fix.needAdj < fix.replace.adj && fix.cmp === '<=');
+  assert.equal(E.lsSuggestFix(listings(), 10, 0.4, 'under'), null); // reachable: nothing to suggest
+});
 
