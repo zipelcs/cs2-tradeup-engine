@@ -52,3 +52,15 @@ test('a failed solve names the single swap that would fix it', () => {
   assert.equal(E.lsSuggestFix(listings(), 10, 0.4, 'under'), null); // reachable: nothing to suggest
 });
 
+test('three seeds: the feasible-only seed recovers the cheap set the cost seed is stranded away from', () => {
+  // Cheap items sit just over the threshold, a few dear low floats pull a cost-first seed feasible.
+  // One-at-a-time swaps then cannot leave them without breaching the ceiling.
+  const c = [];
+  for (let i = 0; i < 10; i++) c.push({ name: 'Sample Covert A', float: 0.21 + i * 1e-4, adj: 0.21 + i * 1e-4, cost: 10, on: true });
+  for (let i = 0; i < 10; i++) c.push({ name: 'Sample Covert B', float: 0.19 + i * 1e-4, adj: 0.19 + i * 1e-4, cost: 14, on: true });
+  for (let i = 0; i < 4; i++) c.push({ name: 'Sample Covert C', float: 0.02 + i * 1e-4, adj: 0.02 + i * 1e-4, cost: 60, on: true });
+  const sel = E.lsPick(c, 10, 0.2, 'under');
+  assert.ok(sel.reduce((a, x) => a + x.adj, 0) <= 2 + 1e-12);
+  assert.ok(E.totalCost(sel) <= 140, 'no dearer than ten of the 14 skin');
+  assert.ok(!sel.some(x => x.cost === 60), 'none of the dear low floats');
+});

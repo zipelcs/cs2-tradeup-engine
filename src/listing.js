@@ -90,6 +90,20 @@ export function lsPick(cands, n, T, dir, mode = 'cheap', keep = new Set(), own =
 
   const costSort = cheapish ? (a, b) => ec(a) - ec(b) : (a, b) => (b.on - a.on) || (ec(a) - ec(b));
   let sel = build(costSort);
+  if (cheapish) {
+    // A cost-first seed can strand the solver on expensive low-float inputs it cannot swap out one at a
+    // time without breaching the float ceiling, so adding candidates could make the answer dearer.
+    // Build from two more seeds and keep the cheapest feasible result.
+    const total = s => (s ? s.reduce((a, c) => a + ec(c), 0) : Infinity);
+    const floatSort = dir === 'over' ? (a, b) => (b.adj - a.adj) || (ec(a) - ec(b)) : (a, b) => (a.adj - b.adj) || (ec(a) - ec(b));
+    const more = [build(floatSort)];
+    // inputs that individually sit on the feasible side meet the mean bound automatically
+    if (!keep.size && !(own.min > 0)) {
+      const feas = dir === 'over' ? c => c.adj >= T - 1e-12 : c => c.adj <= T + 1e-12;
+      more.push(build(costSort, feas));
+    }
+    for (const x of more) if (x && total(x) < total(sel)) sel = x;
+  }
   return sel || null;
 }
 
