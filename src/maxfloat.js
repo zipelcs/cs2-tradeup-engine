@@ -135,6 +135,7 @@ export function exactCore(poolIn, n, T) {
 
 /**
  * The candidate pool. `window` is the adjusted-float band allowed for collection inputs.
+ * `fillerWindow` is a separate band for fillers (items with pool === false).
  * An item outside its band is never offered to the solver, which is how a range is conserved:
  * a window minimum of 0.02 keeps every input under 0.02 out of every contract.
  * @param {object[]} items
@@ -142,11 +143,12 @@ export function exactCore(poolIn, n, T) {
  */
 export function candidates(items, opts = {}) {
   const w = opts.window || {}, ex = opts.exclude;
+  const wf = opts.fillerWindow || {};
   const inside = (a, b) => (b.lo == null || a >= b.lo) && (b.hi == null || a <= b.hi);
   return items.filter(it => {
     if (ex && ex.has(it.id)) return false;
     if (it.adj == null) return false;
-    return inside(af(it), w);
+    return inside(af(it), it.pool === false ? wf : w);
   });
 }
 
@@ -154,11 +156,19 @@ export function candidates(items, opts = {}) {
 
 /**
  * Normalise the group rules. A rule is { group: 'pool' | 'g2', mode: 'min' | 'max' | 'exact', k }.
+ * A rule may count fillers instead ({ group: 'pool', count: 'filler', ... }). It is rewritten as the
+ * dual rule on collection inputs: "exactly F fillers" is "exactly n - F collection", "at most F
+ * fillers" is "at least n - F collection", and "at least F fillers" is "at most n - F collection".
  */
 export function activeQuotas(rules, n) {
   const q = [];
   for (const r of rules || []) {
     const tag = r.group === 'g2' ? 'g2' : 'pool';
+    if (tag === 'pool' && r.count === 'filler') {
+      const k = Math.max(0, Math.min(n, n - r.k));
+      q.push({ tag, mode: r.mode === 'max' ? 'min' : r.mode === 'min' ? 'max' : 'exact', k });
+      continue;
+    }
     q.push({ tag, mode: r.mode, k: r.k });
   }
   return q;
@@ -170,38 +180,161 @@ export function quotaOK(sel, quotas, strict) {
     const c = sel.filter(x => x[q.tag]).length;
     if (q.mode === 'max' && c > q.k) return false;
     if (q.mode === 'exact' && (strict ? c !== q.k : c > q.k)) return false;
+    if (q.mode === 'min' && strict && c < q.k) return false;
   }
   return true;
 }
 
 /**
  * Shape the candidate pool so a greedy seed respects the quotas: keep the best k of each capped group.
+ * The k collection inputs aim at a collection-specific target, not the global one. When fillers are
+ * pinned low the collection inputs must run higher for the output to still land on target:
+ *   collTgt = (T * n - need * fillerMean) / k
+ * with fillerMean estimated from the best fillers actually available. Alongside the k closest, the
+ * k safest members are kept as feasibility fallbacks.
  */
 export function applyFillerCap(pool, ctx) {
   const { n, T, quotas } = ctx;
   let out = pool;
+  const over = ctx.objective === 'over';
   for (const q of quotas) {
-    const inG = out.filter(c => c[q.tag]).sort((a, b) => Math.abs(af(a) - T) - Math.abs(af(b) - T));
-    out = inG.slice(0, q.k).concat(out.filter(c => !c[q.tag]));
+    if (q.mode === 'min') continue; // a minimum needs the full pool available
+    const k = q.k, need = Math.max(0, n - k);
+    const fill = out.filter(c => !c[q.tag]).map(af).sort((a, b) => (over ? b - a : a - b)).slice(0, need);
+    const fillerMean = fill.length ? fill.reduce((a, b) => a + b, 0) / fill.length : T;
+    const collTgt = Math.max(0, Math.min(1, k > 0 ? (T * n - need * fillerMean) / k : T));
+    const inG = out.filter(c => c[q.tag]).sort((a, b) => Math.abs(af(a) - collTgt) - Math.abs(af(b) - collTgt));
+    const rest = out.filter(c => !c[q.tag]);
+    const kept = inG.slice(0, k), keptSet = new Set(kept);
+    const safe = out.filter(c => c[q.tag] && !keptSet.has(c)).sort((a, b) => (over ? af(b) - af(a) : af(a) - af(b))).slice(0, k);
+    out = kept.concat(safe).concat(rest);
   }
   return out;
 }
 
-/** Force "exactly k" counts by swapping members in for non-members. Null when it cannot. */
+/**
+ * Force the quota counts onto a selection, then repair what that broke. Five ordered passes; each one
+ * preserves what the previous one established, and membership counts never change after pass 2.
+ *
+ *   1. trim     too many group members: swap the worst one for the best non-member
+ *   2. add      too few: bring in the member that best fits the direction, drop the worst non-member
+ *   3. repair   the swaps may have pushed the sum past the budget: same-membership swaps, best gain first
+ *   4. climb    push the sum back toward the budget so no headroom is wasted ("offset" pins fillers to
+ *               their extreme first, so only collection inputs climb)
+ *   5. tune     exact objective only: same-membership swaps that minimise |sum - target|
+ *
+ * Returns null, not a contract that silently breaks the cap or the rule.
+ */
 export function enforceQuotas(sel, pool, ctx) {
   if (!sel) return sel;
   sel = sel.slice();
-  for (const q of ctx.quotas) {
-    if (q.mode !== 'exact') continue;
-    let c = sel.filter(x => x[q.tag]).length, guard = 0;
-    while (c < q.k && guard++ < 20) {
-      const inSel = new Set(sel);
-      const add = pool.filter(x => x[q.tag] && !inSel.has(x)).sort((a, b) => (a.cost || 0) - (b.cost || 0))[0];
-      const dropIx = sel.findIndex(x => !x[q.tag]);
-      if (!add || dropIx < 0) return null;
-      sel[dropIx] = add; c++;
+  const { n, T, quotas, objective: obj } = ctx, budget = T * n;
+  const dir = obj === 'over' ? 1 : -1;
+  const same = (a, b) => quotas.every(q => !!a[q.tag] === !!b[q.tag]);
+  for (const q of quotas) {
+    let cnt = sel.filter(c => c[q.tag]).length, guard = 0;
+    // The original trimmed only for 'exact', so a 'max' rule could be rejected after the pool shaping
+    // offered 2k members. This port trims for 'max' as well.
+    if (q.mode === 'exact' || q.mode === 'max') {
+      let g2 = 0;
+      while (cnt > q.k && g2++ < 40) {
+        const inSel = new Set(sel);
+        const repl = pool.filter(c => !c[q.tag] && !inSel.has(c)).sort((a, b) => (obj === 'over' ? af(b) - af(a) : af(a) - af(b)))[0];
+        let di = -1, w = null;
+        for (let i = 0; i < sel.length; i++) {
+          if (!sel[i][q.tag]) continue;
+          const v = obj === 'over' ? -af(sel[i]) : af(sel[i]);
+          if (di < 0 || v > w) { w = v; di = i; }
+        }
+        if (!repl || di < 0) return null;
+        sel[di] = repl; cnt--;
+      }
     }
-    if (sel.filter(x => x[q.tag]).length !== q.k) return null;
+    if (q.mode === 'max') continue;
+    while (cnt < q.k && guard++ < 40) {
+      const inSel = new Set(sel);
+      const add = pool.filter(c => c[q.tag] && !inSel.has(c)).sort((a, b) => dir * (af(b) - af(a)))[0];
+      let dropIx = -1, worst = null;
+      for (let i = 0; i < sel.length; i++) {
+        if (sel[i][q.tag]) continue;
+        const v = dir * af(sel[i]);
+        if (dropIx < 0 || v > worst) { worst = v; dropIx = i; }
+      }
+      if (!add || dropIx < 0) return null;
+      sel[dropIx] = add; cnt++;
+    }
+    const have = sel.filter(c => c[q.tag]).length;
+    if (q.mode === 'exact' && have !== q.k) return null;
+    if (q.mode === 'min' && have < q.k) return null;
+  }
+  if (obj === 'under' || obj === 'over') {
+    const within = () => (obj === 'under' ? sumOf(sel) <= budget + 1e-9 : sumOf(sel) >= budget - 1e-9);
+    let guard = 0;
+    while (!within() && guard++ < 300) {
+      const inSel = new Set(sel);
+      let bi = -1, bestGain = 1e-12, bestRepl = null;
+      for (let i = 0; i < sel.length; i++) {
+        for (const r of pool) {
+          if (inSel.has(r) || !same(r, sel[i])) continue;
+          const gain = obj === 'under' ? af(sel[i]) - af(r) : af(r) - af(sel[i]);
+          if (gain > bestGain) { bestGain = gain; bi = i; bestRepl = r; }
+        }
+      }
+      if (bi < 0) break;
+      sel[bi] = bestRepl;
+    }
+    if (!within()) return null;
+    if (ctx.strategy === 'offset' && quotas.some(q => q.tag === 'pool')) {
+      let g0 = 0, moved = true;
+      while (moved && g0++ < 200) {
+        moved = false;
+        const inSel = new Set(sel);
+        for (let i = 0; i < sel.length; i++) {
+          const c0 = sel[i];
+          if (c0.pool) continue;
+          const r = pool.filter(c => !c.pool && !inSel.has(c) && same(c, c0)).sort((a, b) => (obj === 'under' ? af(a) - af(b) : af(b) - af(a)))[0];
+          if (r && (obj === 'under' ? af(r) < af(c0) - 1e-15 : af(r) > af(c0) + 1e-15)) { sel[i] = r; moved = true; break; }
+        }
+      }
+    }
+    let guard2 = 0, improved = true;
+    while (improved && guard2++ < 600) {
+      improved = false;
+      const cur = sumOf(sel);
+      if (obj === 'under' && budget - cur < 1e-9) break;
+      if (obj === 'over' && cur - budget < 1e-9) break;
+      const inSel = new Set(sel);
+      let bi = -1, bestRepl = null, bestGain = 1e-15;
+      for (let i = 0; i < sel.length; i++) {
+        const c0 = sel[i];
+        if (ctx.strategy === 'offset' && !c0.pool) continue;
+        for (const r of pool) {
+          if (inSel.has(r) || !same(r, c0)) continue;
+          const nsum = cur - af(c0) + af(r);
+          if (obj === 'under' ? nsum > budget + 1e-12 : nsum < budget - 1e-12) continue;
+          const gain = obj === 'under' ? af(r) - af(c0) : af(c0) - af(r);
+          if (gain > bestGain) { bestGain = gain; bi = i; bestRepl = r; }
+        }
+      }
+      if (bi >= 0) { sel[bi] = bestRepl; improved = true; }
+    }
+  }
+  if (obj === 'exact') {
+    let guard = 0, improved = true;
+    while (improved && guard++ < 400) {
+      improved = false;
+      const inSel = new Set(sel), s = sumOf(sel);
+      let bestD = Math.abs(s - budget), bi = -1, bestRepl = null;
+      for (let i = 0; i < sel.length; i++) {
+        for (const r of pool) {
+          if (inSel.has(r) || !same(r, sel[i])) continue;
+          const nd = Math.abs(s - af(sel[i]) + af(r) - budget);
+          if (nd < bestD - 1e-12) { bestD = nd; bi = i; bestRepl = r; }
+        }
+      }
+      if (bi < 0) break;
+      sel[bi] = bestRepl; improved = true;
+    }
   }
   return sel;
 }
