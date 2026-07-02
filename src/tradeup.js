@@ -1,3 +1,4 @@
+import { fr, nextUp, nextDown } from './f32.js';
 
 /**
  * Adjusted float: an input's raw wear as a fraction of its OWN skin's float range.

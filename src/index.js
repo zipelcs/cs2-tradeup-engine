@@ -1,3 +1,4 @@
+export * from './f32.js';
 export * from './tradeup.js';
 export * from './catalogue.js';
 export * from './maxfloat.js';
