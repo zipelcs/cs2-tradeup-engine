@@ -17,7 +17,7 @@ export function meanAdjusted(adjs) {
 export function landingFromAdjusted(adjs, outMin, outMax) {
   const m = meanAdjusted(adjs);
   const f = Math.min(outMax, Math.max(outMin, outMin + m * (outMax - outMin)));
-  return f;
+  return Math.fround(f); // outputs snap to real float32 steps
 }
 
 /**

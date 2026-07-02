@@ -54,6 +54,7 @@ export function constantScore(fv) {
 /**
  * Candidate target floats inside an output range: every catalogue entry at 0 to `maxLead` leading
  * zeros.
+ * Only values that are exactly representable float32 steps are kept.
  */
 export function constantCatalogue(fvMin, fvMax, maxLead = 4) {
   const out = [], seen = new Set();
@@ -61,6 +62,7 @@ export function constantCatalogue(fvMin, fvMax, maxLead = 4) {
     for (let k = 0; k <= maxLead; k++) {
       const dec = (rep('0', k) + digits).slice(0, 14);
       let v = +('0.' + dec);
+      v = Math.fround(v);
       if (!(v > 0) || v < fvMin - 1e-12 || v > fvMax + 1e-12) continue;
       const key = v.toFixed(14);
       if (seen.has(key)) continue;
