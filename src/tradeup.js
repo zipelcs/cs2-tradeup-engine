@@ -9,9 +9,11 @@ export function adjust(raw, skinMin, skinMax) {
   return Math.min(1, Math.max(0, (raw - skinMin) / (skinMax - skinMin)));
 }
 
-/** Mean of the adjusted floats. */
+/** Mean of adjusted floats exactly as the game forms it: float32 adds in insertion order, then a float32 divide. */
 export function meanAdjusted(adjs) {
-  return adjs.reduce((s, a) => s + a, 0) / adjs.length;
+  let s = fr(0);
+  for (const a of adjs) s = fr(s + fr(a));
+  return fr(s / fr(adjs.length));
 }
 
 /** Output float from adjusted inputs, in the order given, onto the output skin's [min, max]. */
@@ -40,6 +42,22 @@ export function wearOf(f) {
   return WEARS[i < 0 ? 4 : i];
 }
 
+/**
+ * A solver target that keeps a safety margin below a wear edge: `margin` float32 steps under the edge
+ * (13 by default; observed order jitter is about 2 steps). Returns null when the output skin's range
+ * cannot reach that wear at all, so a 0.10-0.20 skin is never offered as Factory New.
+ */
+export function safeCap(index, outMin, outMax, margin = 13) {
+  const edge = fr(DECIMAL_EDGES[index]);
+  let cap = edge;
+  for (let k = 0; k < margin; k++) cap = nextDown(cap);
+  if (outMin != null && outMax != null && outMax > outMin) {
+    if (fr(outMin) >= edge) return null;
+    cap = Math.min(cap, fr(outMax));
+    if (cap <= fr(outMin)) return null;
+  }
+  return cap;
+}
 
 // ---- odds ---------------------------------------------------------------------------------------
 

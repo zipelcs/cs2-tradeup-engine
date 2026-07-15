@@ -1,5 +1,7 @@
 // Custom Float: aim at one exact output float.
 
+import { fr } from './f32.js';
+import { landingDistribution } from './orders.js';
 import { byName, isGold, goldPool, collSkins, nextRarity } from './catalogue.js';
 import { solve, targetAdjusted } from './maxfloat.js';
 
@@ -78,4 +80,39 @@ export function buildPools(items, catalogue) {
   return pools;
 }
 
+/**
+ * The sweep: which of my pools can make this float at all?
+ *
+ * Takes one target, groups each pool's outcomes by float range, runs the closest-sum solver on each
+ * group, enumerates every insertion order of the result, and ranks the pools by distance from the
+ * target with exact hits first.
+ * @param {number} target
+ * @param {object[]} pools   from buildPools
+ */
+export function customSweep(target, pools) {
+  const rows = [];
+  for (const P of pools) {
+    const groups = {};
+    for (const o of P.outs) {
+      if (!(o.max > o.min) || target < o.min || target > o.max) continue;
+      const k = o.min + '|' + o.max;
+      (groups[k] = groups[k] || { lo: o.min, hi: o.max, outs: [] }).outs.push(o);
+    }
+    for (const G of Object.values(groups)) {
+      const T = (target - G.lo) / (G.hi - G.lo) * P.need;
+      const sol = closestSum(P.inputs, P.need, T);
+      if (!sol) continue;
+      const L = landingDistribution(sol.sel.map(x => x.adj), G.lo, G.hi);
+      let best = null;
+      for (const l of L) { const d = Math.abs(l.float - target); if (!best || d < best.d) best = { d, l }; }
+      rows.push({
+        pool: P.label, need: P.need, outs: G.outs, lo: G.lo, hi: G.hi,
+        order: best.l.order.map(i => sol.sel[i]), float: best.l.float, share: best.l.share,
+        landings: L.length, diff: best.d, exact: Object.is(best.l.float, fr(target)),
+      });
+    }
+  }
+  rows.sort((a, b) => (b.exact ? 1 : 0) - (a.exact ? 1 : 0) || a.diff - b.diff);
+  return rows;
+}
 
