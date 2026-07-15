@@ -1,12 +1,12 @@
 import { fr, nextUp, nextDown } from './f32.js';
+import { remap } from './remap.js';
 
 /**
  * Adjusted float: an input's raw wear as a fraction of its OWN skin's float range.
  * A 0.10 on a 0.00-0.50 skin contributes 0.20; the same 0.10 on a 0.00-1.00 skin contributes 0.10.
  */
 export function adjust(raw, skinMin, skinMax) {
-  if (!(skinMax > skinMin)) return 0;
-  return Math.min(1, Math.max(0, (raw - skinMin) / (skinMax - skinMin)));
+  return remap(fr(raw), fr(skinMin), fr(skinMax), 0, 1);
 }
 
 /** Mean of adjusted floats exactly as the game forms it: float32 adds in insertion order, then a float32 divide. */
@@ -18,9 +18,7 @@ export function meanAdjusted(adjs) {
 
 /** Output float from adjusted inputs, in the order given, onto the output skin's [min, max]. */
 export function landingFromAdjusted(adjs, outMin, outMax) {
-  const m = meanAdjusted(adjs);
-  const f = Math.min(outMax, Math.max(outMin, outMin + m * (outMax - outMin)));
-  return Math.fround(f); // outputs snap to real float32 steps
+  return remap(meanAdjusted(adjs), 0, 1, fr(outMin), fr(outMax));
 }
 
 /**

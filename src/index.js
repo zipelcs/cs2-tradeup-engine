@@ -1,4 +1,5 @@
 export * from './f32.js';
+export * from './remap.js';
 export * from './tradeup.js';
 export * from './orders.js';
 export * from './solver.js';
@@ -8,5 +9,6 @@ export * from './custom.js';
 export * from './multi.js';
 export * from './hunter.js';
 export * from './floatlab-constants.js';
+export * from './chain.js';
 export * from './glitch.js';
 export * from './listing.js';

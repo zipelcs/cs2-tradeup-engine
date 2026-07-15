@@ -1,4 +1,5 @@
 import { fr, bits, fromBits } from './f32.js';
+import { remap } from './remap.js';
 
 /**
  * Exact landing distribution over every insertion order.
@@ -42,8 +43,7 @@ export function landingDistribution(adjs, outMin, outMax) {
   const byLanding = new Map();
   for (const [sb, count] of dp[full]) {
     total += count;
-    const m = fr(fromBits(sb) / fr(n));
-    const f = fr(Math.min(outMax, Math.max(outMin, outMin + m * (outMax - outMin))));
+    const f = remap(fr(fromBits(sb) / fr(n)), 0, 1, fr(outMin), fr(outMax));
     const e = byLanding.get(f) || { float: f, orders: 0, sums: [] };
     e.orders += count;
     e.sums.push(sb);
