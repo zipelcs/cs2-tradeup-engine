@@ -2,6 +2,7 @@
 
 import { fr } from './f32.js';
 import { landingDistribution } from './orders.js';
+import { stepSolve, sumWindow } from './solver.js';
 import { byName, isGold, goldPool, collSkins, nextRarity } from './catalogue.js';
 import { solve, targetAdjusted } from './maxfloat.js';
 
@@ -116,3 +117,25 @@ export function customSweep(target, pools) {
   return rows;
 }
 
+/**
+ * Land exactly on one float32 step.
+ *
+ * Step-Solve over the pool with the sum window of the target, accepting only that exact float. The
+ * result carries the chosen inputs in a click order that hits, the share of all orders that hit, the
+ * other landings, and how much of the search space was visited.
+ * @param {{id:any, adj:number}[]} inputs
+ * @param {number} n
+ * @param {number} target     must be a float32 value
+ * @param {{min:number,max:number}} out
+ * @param {{cap?:number, minShare?:number, maxShare?:number, slack?:number}} [opts]  share bounds filter the hit
+ */
+export function exactFloat(inputs, n, target, out, opts = {}) {
+  const t = fr(target);
+  const [sumLo, sumHi] = sumWindow(t, n, out.min, out.max, opts.slack);
+  const minShare = opts.minShare || 0, maxShare = opts.maxShare == null ? 1 : opts.maxShare;
+  const accept = (f, l) => Object.is(f, t) && l.share >= minShare && l.share <= maxShare;
+  const hit = stepSolve(inputs, n, sumLo, sumHi, out.min, out.max, accept, opts.cap);
+  if (!hit || hit.float == null) return hit;
+  const L = landingDistribution(hit.items.map(x => x.adj), out.min, out.max);
+  return { ...hit, others: L.filter(l => !Object.is(l.float, t)).map(l => ({ float: l.float, share: l.share })) };
+}
