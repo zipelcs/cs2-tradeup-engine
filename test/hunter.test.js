@@ -50,3 +50,12 @@ test('lowest and highest modes take the extremes', () => {
   assert.deepEqual(E.huntPick(cands, 5, 1, { mode: 'highest' }).map(x => x.id).sort(), ['c13', 'c14', 'c15', 'c16', 'c17']);
 });
 
+test('the same five items land on two floats: 60% of orders on one, 40% on the other', () => {
+  const r = E.huntSolve(KNIFE, BAR, chroma3(), catalogue);
+  const L = E.landingDistribution(r.sel.map(x => x.adj), 0, 0.08);
+  assert.equal(L.length, 2);
+  assert.ok(Object.is(L[0].float, 0.046016860753297806) && Math.abs(L[0].share - 0.6) < 1e-12);
+  assert.ok(Object.is(L[1].float, 0.046016853302717209) && Math.abs(L[1].share - 0.4) < 1e-12);
+  assert.equal(E.stepsBetween(L[1].float, L[0].float), 2);
+  assert.equal(E.robustness(r.sel.map(x => x.adj), 0, 0.08).verdict, 'FRAGILE');
+});

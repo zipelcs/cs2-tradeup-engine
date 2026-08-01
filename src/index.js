@@ -3,6 +3,7 @@ export * from './remap.js';
 export * from './tradeup.js';
 export * from './orders.js';
 export * from './solver.js';
+export * from './robustness.js';
 export * from './catalogue.js';
 export * from './maxfloat.js';
 export * from './custom.js';

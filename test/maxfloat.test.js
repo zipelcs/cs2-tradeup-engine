@@ -4,7 +4,7 @@ import * as E from '../src/index.js';
 import { chroma3, synthetic } from './helpers.js';
 
 const DOPPLER = { min: 0, max: 0.08 };
-const MAX_FN = 0.069999992847442627;
+const MAX_FN = E.maxOfWear(0);
 const ids = sel => sel.map(x => x.id).sort();
 
 test('the budget is per target skin', () => {
@@ -23,6 +23,16 @@ test('max float on the Chroma 3 pool burns the five worst floats and keeps the r
   assert.ok(Math.abs(E.stats(sel).mean - 0.5752107262611389) < 1e-6);
 });
 
+test('the predicted landing of that contract', () => {
+  const pool = chroma3(), by = Object.fromEntries(pool.map(x => [x.id, x.adj]));
+  const order = ['c17', 'c15', 'c14', 'c16', 'c13'];
+  const got = E.landingFromAdjusted(order.map(id => by[id]), 0, 0.08);
+  assert.ok(Object.is(got, 0.046016853302717209), E.show(got));
+  assert.equal(E.wearOf(got), 'Factory New');
+  // the naive "five best" contract is the same wear built from far better items
+  const best = pool.slice().sort((a, b) => a.adj - b.adj).slice(0, 5);
+  assert.ok(Object.is(E.landingFromAdjusted(best.map(x => x.adj), 0, 0.08), 0.0061112260445952415));
+});
 
 test('underCore: greedy with a feasibility test, never over budget', () => {
   const pool = synthetic(60, 3, 0, 0.5);

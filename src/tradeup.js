@@ -34,10 +34,49 @@ export function landing(inputs, output) {
 
 export const WEARS = ['Factory New', 'Minimal Wear', 'Field-Tested', 'Well-Worn', 'Battle-Scarred'];
 export const DECIMAL_EDGES = [0.07, 0.15, 0.38, 0.45];
-/** Wear band of a float. */
+/** The game compares against float32 constants. 0.07f and 0.15f sit above their decimals; 0.38f and 0.45f sit below. */
+export const WEAR_EDGES = DECIMAL_EDGES.map(fr);
+
+/** Wear the game assigns to a float32 value. */
 export function wearOf(f) {
+  const i = WEAR_EDGES.findIndex(e => f < e);
+  return WEARS[i < 0 ? 4 : i];
+}
+
+/** Wear a naive tool assigns by comparing against the decimal edges. */
+export function decimalWearOf(f) {
   const i = DECIMAL_EDGES.findIndex(e => f < e);
   return WEARS[i < 0 ? 4 : i];
+}
+
+/**
+ * Glitched floats: values the game classifies differently from what their digits say. They exist only
+ * where the float32 edge sits below its decimal. Found by enumerating the ladder around every edge.
+ */
+export function glitchFloats(radius = 64) {
+  const out = [];
+  for (const edge of WEAR_EDGES) {
+    let v = edge;
+    for (let k = 0; k < radius; k++) v = nextDown(v);
+    for (let k = 0; k < 2 * radius; k++, v = nextUp(v)) {
+      if (wearOf(v) !== decimalWearOf(v)) out.push({ float: v, reads: decimalWearOf(v), is: wearOf(v) });
+    }
+  }
+  return out;
+}
+
+/**
+ * The two glitched floats as constants. Stored as the upper band, read as the lower one. The first was
+ * confirmed on an in-game exterior label; glitchFloats() re-derives both from the ladder.
+ */
+export const GLITCH_FLOATS = [
+  { edge: 0.38, float: fr(0.38), reads: 'Field-Tested', is: 'Well-Worn' },
+  { edge: 0.45, float: fr(0.45), reads: 'Well-Worn', is: 'Battle-Scarred' },
+];
+
+/** Largest float32 the game still calls Factory New (and likewise for the other bands). */
+export function maxOfWear(index) {
+  return nextDown(WEAR_EDGES[index]);
 }
 
 /**
@@ -46,7 +85,7 @@ export function wearOf(f) {
  * cannot reach that wear at all, so a 0.10-0.20 skin is never offered as Factory New.
  */
 export function safeCap(index, outMin, outMax, margin = 13) {
-  const edge = fr(DECIMAL_EDGES[index]);
+  const edge = WEAR_EDGES[index];
   let cap = edge;
   for (let k = 0; k < margin; k++) cap = nextDown(cap);
   if (outMin != null && outMax != null && outMax > outMin) {

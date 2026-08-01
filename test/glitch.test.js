@@ -27,3 +27,9 @@ test('the scan lands exactly on the glitched float or reports nothing', () => {
   assert.deepEqual(E.glitchScan([low]), []);
 });
 
+test('the game stores the glitched float one band worse than it reads', () => {
+  const f = Math.fround(0.38);
+  assert.equal(E.wearOf(f), 'Well-Worn');
+  assert.equal(E.decimalWearOf(f), 'Field-Tested');
+  assert.equal(E.wearOf(E.nextDown(f)), 'Field-Tested'); // one step below is an ordinary float
+});

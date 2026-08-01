@@ -3,9 +3,7 @@
 // Matching is exact float32 equality. There is no tolerance window: one step below the glitched
 // float is an ordinary item.
 
-import { fr } from './f32.js';
-// the last-known pair of edge floats; which band the game stores them in was settled later
-const GLITCH_FLOATS = [{ edge: 0.38, float: fr(0.38) }, { edge: 0.45, float: fr(0.45) }];
+import { GLITCH_FLOATS } from './tradeup.js';
 import { stepSolve } from './solver.js';
 
 /**
