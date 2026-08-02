@@ -30,6 +30,35 @@ test('the two glitched floats and the capped 0.07', () => {
   assert.equal(E.flDesire(fr(0.07), { max: 1 }).tier, 'D');
 });
 
+test('difficulty counts the float32 steps that render the same digits', () => {
+  assert.equal(E.flDifficulty(fr(0.0088888881728)), 1);
+  assert.ok(E.flDifficulty(fr(0.000088888)) > 20);
+  assert.equal(E.flDepthGain(2), 2.7);
+});
+
+test('coverage and the 0.6 floor', () => {
+  assert.equal(E.flCoverage(0.0088888881, '888888', 2), 0.8);
+  assert.equal(E.flCoverage(0.5512345678, '1234', 0), 0.4);
+  assert.equal(E.FL_COVERAGE_FLOOR, 0.6);
+});
+
+test('score = weight x depth gain x coverage / sqrt(difficulty)', () => {
+  const s = E.flScore(fr(0.0088888881728));
+  assert.deepEqual([s.tier, s.depth, s.coverage, s.difficulty, s.weight, s.coincidence], ['S', 2, 0.8, 1, 100, false]);
+  assert.equal(s.score, Math.round(100 * 2.7 * 0.8 / 1));
+  assert.equal(E.flScore(0.2953817), null);
+});
+
+test('the grid offers only what the output range can hold', () => {
+  const doppler = E.flGrid(0, 0.08), wide = E.flGrid(0.06, 0.8);
+  assert.ok(doppler.length > 0 && doppler.every(g => g.fv <= 0.08 && !g.glitch));
+  assert.ok(wide.every(g => g.fv >= 0.06));
+  assert.equal(wide.filter(g => g.glitch).length, 2);
+  assert.equal(E.flGrid(0.4, 1).filter(g => g.glitch).length, 1);
+  assert.ok(doppler.every(g => Object.is(fr(g.fv), g.fv)), 'every target is a float32 step');
+  const rank = g => 'DCBAS'.indexOf(g.tier);
+  for (let i = 1; i < doppler.length; i++) assert.ok(rank(doppler[i]) <= rank(doppler[i - 1]), 'tier sorts first');
+});
 
 test('the catalogue holds the seven categories and nothing from the constants era', () => {
   const cat = E.flCatalogue(0, 1);

@@ -102,6 +102,85 @@ export function flDesire(fv, ctx = {}) {
   return null;
 }
 
+// ---- the arithmetic behind the tier -------------------------------------------------------------
+//
+//   score = patternWeight x depthGain(leading zeros) x coverage / sqrt(difficulty)
+//
+// The score does not replace the tier. Difficulty is not sellability: a one-step-wide 1337 is harder
+// to hit than a forty-step-wide run of 8s and still sells slower. Tier sorts first.
+
+export const FL_TEMPLATES = [
+  { t: '888888', w: 100, d: '8-rep' }, { t: '666666', w: 100, d: '6-rep' },
+  { t: '88888', w: 92, d: '8-rep' }, { t: '66666', w: 92, d: '6-rep' },
+  { t: '8888', w: 80, d: '8-rep' }, { t: '6666', w: 80, d: '6-rep' },
+  { t: '133742069', w: 95, d: '1337-420-69' }, { t: '1337420', w: 82, d: '1337-420' }, { t: '42069', w: 72, d: '420-69' },
+  { t: '1337', w: 64, d: '1337' }, { t: '69420', w: 70, d: '69-420' }, { t: '9112001', w: 78, d: '9/11' },
+  { t: '777777', w: 70, d: '7-rep' }, { t: '999999', w: 66, d: '9-rep' }, { t: '111111', w: 60, d: '1-rep' },
+  { t: '123456789', w: 52, d: 'ascending' }, { t: '987654321', w: 52, d: 'descending' },
+];
+export const FL_MAX_DEPTH = 5;
+export const FL_COVERAGE_FLOOR = 0.6;
+
+/** Share of the shown decimals explained by the pattern or by leading zeros. */
+export function flCoverage(fv, template, depth, dp = 10) {
+  const s = (+fv).toFixed(dp).replace(/^0\./, '');
+  if (!s.length) return 0;
+  return (Math.min(depth, s.length) + Math.min(template.length, Math.max(0, s.length - depth))) / s.length;
+}
+
+/**
+ * How many float32 steps render the same leading decimals, found by walking the ladder both ways.
+ * 1 means only one float in the game shows this string.
+ */
+export function flDifficulty(fv, dp = 9) {
+  const key = (+fv).toFixed(dp), c = bits(fr(fv));
+  let n = 1;
+  for (let k = 1; k <= 60; k++) { if (fromBits(c + k).toFixed(dp) !== key) break; n++; }
+  for (let k = 1; k <= 60; k++) { if (fromBits(c - k).toFixed(dp) !== key) break; n++; }
+  return n;
+}
+
+export const flDepthGain = d => 1 + d * 0.85;
+
+/**
+ * The score with every term exposed. `coincidence` is true below the coverage floor: a pattern
+ * buried in an otherwise random float is not a rare float, and such a result is dropped.
+ */
+export function flScore(fv, ctx = {}) {
+  const d = flDesire(fv, ctx);
+  if (!d) return null;
+  const o = flSig(fv, 12);
+  const tpl = FL_TEMPLATES.find(t => o.sig.indexOf(t.t) === 0) || FL_TEMPLATES.find(t => o.sig.indexOf(t.t) > -1) || { t: o.sig.slice(0, 6), w: 40, d: 'pattern' };
+  const coverage = flCoverage(fv, tpl.t, o.lead), difficulty = flDifficulty(fv);
+  return {
+    tier: d.tier, label: d.label, depth: o.lead, coverage, difficulty, template: tpl.d, weight: tpl.w,
+    score: Math.round(tpl.w * flDepthGain(o.lead) * coverage / Math.sqrt(difficulty)),
+    coincidence: coverage < FL_COVERAGE_FLOOR,
+  };
+}
+
+/**
+ * Enumerated targets: every template at depth 0 to 5, kept only when it is a real float32 step that
+ * the output range can hold and that clears the coverage floor. The two glitched floats sit outside
+ * the grid as fixed values. Sorted by tier, then score.
+ */
+export function flGrid(fvMin, fvMax) {
+  const out = [], seen = new Set();
+  for (const tpl of FL_TEMPLATES) {
+    for (let d = 0; d <= FL_MAX_DEPTH; d++) {
+      const v = fr(+('0.' + ('0'.repeat(d) + tpl.t).slice(0, 10)));
+      if (!(v > 0) || v < fvMin - 1e-12 || v > fvMax + 1e-12 || seen.has(v)) continue;
+      const sc = flScore(v, { max: fvMax });
+      if (!sc || sc.coincidence) continue;
+      seen.add(v);
+      out.push({ fv: v, template: tpl.d, depth: d, score: sc.score, tier: sc.tier, difficulty: sc.difficulty, coverage: sc.coverage, label: sc.label });
+    }
+  }
+  for (const g of [GLITCH_38, GLITCH_45]) {
+    if (g >= fvMin && g <= fvMax) out.push({ fv: g, template: 'glitched float', depth: null, score: 500, tier: 'S', difficulty: 1, coverage: 1, label: 'glitched float', glitch: true });
+  }
+  return out.sort((a, b) => tierRank(b.tier) - tierRank(a.tier) || b.score - a.score);
+}
 
 /**
  * Targets the seven categories allow inside an output range: single-digit runs 4 to 10 long at up to
@@ -150,8 +229,8 @@ export function flSearch(P, opts = {}) {
   }
   const G = Object.values(groups);
   const rank = (fv, g) => {
-    const d = flDesire(fv, { max: g.max });
-    return d ? { tier: d.tier, label: d.label, score: 0 } : null;
+    const s = flScore(fv, { max: g.max });
+    return s && !s.coincidence ? { tier: s.tier, label: s.label, score: s.score, detail: s } : null;
   };
   const record = (sel, g, fast) => {
     const got = landingFromAdjusted(sel.map(x => x.adj), g.min, g.max);
