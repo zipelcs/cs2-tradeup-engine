@@ -10,6 +10,7 @@ export * from './custom.js';
 export * from './multi.js';
 export * from './hunter.js';
 export * from './floatlab-constants.js';
+export * from './floatlab.js';
 export * from './chain.js';
 export * from './glitch.js';
 export * from './listing.js';
