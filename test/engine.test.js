@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { landing, adjust, isFloat32, fr } from '../src/index.js';
 import { naiveFloat64 } from '../src/naive.js';
-import { REFERENCE, CRAFT_A, CRAFT_B, toInputs } from '../fixtures/crafts.js';
+import { REFERENCE, CRAFT_A, CRAFT_B, CRAFT_K, toInputs } from '../fixtures/crafts.js';
 
 test('reference vector lands on the exact float32', () => {
   const r = REFERENCE.range;
@@ -39,3 +39,12 @@ test('adjusted floats are relative to each skin', () => {
 });
 
 
+
+test('craft K: five coverts into a knife, the forward order gives the float the game stored', () => {
+  assert.ok(Object.is(landing(toInputs(CRAFT_K), CRAFT_K.output), CRAFT_K.forward));
+});
+
+test('craft A: the game stored one step above the forward prediction', () => {
+  assert.notEqual(landing(toInputs(CRAFT_A), CRAFT_A.output), CRAFT_A.actual);
+  assert.ok(isFloat32(CRAFT_A.actual));
+});

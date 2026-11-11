@@ -7,7 +7,7 @@ import { landingDistribution } from './orders.js';
  *
  * A prediction can be exactly right and the craft can still miss: a tiny error in one input float, or
  * two look-alike copies placed in the wrong order, lands you on the neighbouring step. A real craft
- * predicted at a 68.5% order share missed by one step, which is how this score was calibrated.
+ * predicted from 68.5% of orders was stored one step higher, which is where the 0.75 line came from.
  *
  * Measured:
  *   share  - fraction of insertion orders that reach this exact float (what decides fragility)
