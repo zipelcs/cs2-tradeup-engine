@@ -1,40 +1,59 @@
 # Float model
 
-Code: `src/f32.js`, `src/remap.js`, `src/tradeup.js`. Tests: `test/engine.test.js`, `test/wear.test.js`.
+Code: `src/f32.js`, `src/remap.js`, `src/tradeup.js`. Tests: `test/engine.test.js`, `test/wear.test.js`, `test/differential.test.js`.
 
-## The problem
+The game stores wear as a 32-bit float. There is a finite ladder of values, and a prediction is either on the right rung or wrong. This note describes the chain I use to predict the rung, what I measured about the shortcuts, and what the chain has been checked against.
 
-Predict the float a trade-up produces, to the exact stored value. The game stores wear as a 32-bit float, so there is a finite ladder of values and a prediction is either on the right rung or it is wrong.
+## The chain
 
-## What was tried first
-
-From 13 June the tool computed `min + mean * (max - min)` in double precision. On 2 July predicted outputs were rounded to float32 once at the end. On 15 July the mean was formed by float32 additions in insertion order. Each step looked like the fix.
-
-## What broke
-
-On 15 July a solver target of 0.06999999997788109 was reported as Factory New. Stored as a float32 it is 0.07000000029802322, which is Minimal Wear. On 1 August the remaining double-precision sites were measured against the float32 chain over 200,000 random contracts. Plain double precision disagreed on 76.81% of them. Rounding once at the end was still wrong 43.82% of the time, by up to 3 steps. Rounding the mean first was wrong 21.10% of the time. Two of the wrong shapes already returned float32 values, so a check that the result is a float32 passed them.
-
-## The design
-
-Every operation is rounded to float32, in the order the game performs it:
+Every operation is rounded to float32, in this order:
 
 1. Each input's raw float is remapped onto 0 to 1 against that skin's own caps.
 2. The adjusted floats are added one at a time, in insertion order.
 3. The sum is divided by the count.
 4. The mean is remapped onto the output skin's caps.
 
-`remap` is a model of the game's clamped remap, verified against in-game crafts. Credit to floatjitsu for the reference vector that locks it (`fixtures/crafts.js`) and for first showing that order matters.
+`remap` is my model of the game's clamped remap. floatjitsu published the reference vector that locks it (`fixtures/crafts.js`) and first showed that order matters.
 
-The wear edges are float32 constants too. 0.07f and 0.15f sit above their decimals. 0.38f and 0.45f sit below theirs. So the largest Factory New float is 0.069999992847442627, and at 0.38 and 0.45 exactly one float reads as the better wear while the game stores the worse one. The tool had those two the wrong way round from 15 July until an in-game exterior label was checked on 1 August. The edges and the two glitched floats are now single constants (`WEAR_EDGES`, `GLITCH_FLOATS`), and `glitchFloats()` rederives them by walking the ladder.
+## Wear edges
 
-Solver targets sit 13 steps under an edge (`safeCap`). Observed order jitter is about 2 steps.
+The edges are float32 constants too. 0.07f and 0.15f sit above their decimals, and 0.38f and 0.45f sit below theirs. Two things follow. The largest Factory New float is 0.069999992847442627. At 0.38 and at 0.45 exactly one float reads as the better wear in decimal digits while the float32 comparison puts it in the worse one. `test/wear.test.js` finds those two by walking the ladder and finds none at 0.07 or 0.15.
 
-Input floats need at least 8 decimal places. With 7 the predicted step changes.
+For two weeks in July I had those two floats the wrong way round. On 1 August I read the exterior label of a 0.38 item in the game and it said Well-Worn. That observation is in my notes only. There is no fixture for it here, so the classification in this repository rests on the float32 comparison and the ladder walk.
 
-## Method
+One early bug shows why the edge has to be a float32. A solver target of 0.06999999997788109 was reported as Factory New. That number is not a float32 value. Stored, it becomes 0.07000000029802322, which is the edge itself and Minimal Wear (`test/edge.test.js`).
 
-The model was built first and then tested against crafts made in the game. One ten-input craft was chosen because forward and reversed order predict different steps. It landed on the forward prediction, which settled the order the game uses. A second craft, predicted from 68.5% of orders, landed one step higher. That miss produced the robustness verdict and its 75% threshold. The order features were labelled experimental in the tool until a live craft confirmed them.
+`safeCap` gives the solvers a target 13 steps under an edge. The margin is a starting point. The Max Float solver still checks every insertion order against the cap in float32 (see [max-float-solver.md](max-float-solver.md)).
 
-## Evidence
+## How the model got here
 
-The reference vector lands on 0.33839523792266846. Two real crafts are locked in `fixtures/crafts.js`. A differential test compares the engine with an independently written chain over 20,000 random contracts and allows zero mismatches.
+I started on 13 June with `min + mean * (max - min)` in double precision. On 2 July I rounded the predicted output to float32 once at the end. On 15 July I formed the mean with float32 additions in insertion order. On 1 August I replaced the remaining double-precision sites with the full chain.
+
+`bench/accuracy.js` measures the shortcut formulas against the chain on 200,000 seeded random ten-input contracts:
+
+| Formula | Differs from the chain | Worst miss |
+|---|---|---|
+| float64 lerp | 100.00%, and never a float32 value | 4 steps |
+| float64 inside, rounded once at the end | 51.43% | 4 steps |
+| mean rounded to float32, then a rounded lerp | 51.44% | 4 steps |
+
+The last two return float32 values, so a check that the result is a float32 passes them. Only a comparison of the whole chain catches them.
+
+The bench compares formulas with my chain. It says nothing about the game.
+
+## What the chain has been checked against
+
+Four fixtures in `fixtures/crafts.js`:
+
+- The published reference vector lands on 0.33839523792266846.
+- Craft K, five coverts into a knife. The game stored 0.20020020008087158, which is the forward prediction.
+- Craft B, ten inputs. Forward order and reversed order predict different steps. The game stored the forward one. That craft is why I treat slot 1 as the first item added.
+- Craft A, ten inputs. The game stored 0.069696977734565735, one step above the forward prediction. The model missed it.
+
+So the model has two exact hits and one miss on recorded crafts. The crafts are recorded results. Nothing in this repository can check them against the game again.
+
+`test/differential.test.js` compares the engine with a second implementation over 20,000 seeded random contracts and allows no mismatch. The second implementation imports nothing from `src/` and never calls `Math.fround`. It stores every intermediate value into a `Float32Array` cell and lets the typed array do the rounding.
+
+## Input precision
+
+Rounding the inputs of the three recorded crafts to 7 decimals moves each prediction by one step. At 8 decimals the two ten-input crafts are right and the five-input craft is still one step off. At 9 decimals all three are right. I use 9 or more.

@@ -1,32 +1,43 @@
 # Testing
 
-## In the original tool
+`node --test`, no dependencies. Each module has its own test file, and the solvers are pure functions, so no DOM is needed. Random pools and random orders are seeded, so every run is identical.
 
-The tool is one HTML file, so it was tested by booting the whole file inside jsdom with scripts enabled and a stubbed `fetch` that serves synthetic tables. No network, database or keys. There are 145 suites of that kind. A syntax gate extracts the largest script block and checks it before any suite runs.
+The original tool was one HTML file and was tested by booting that file in jsdom. Those suites are not in this repository. Everything below describes what is here.
 
-A separate auditor looks for dead controls. It boots the app in jsdom on stub data, visits every tab, calls every `onclick` handler it finds, and reports anything that throws or has no handler behind it. In a single-file tool edited by text patches, a button whose function was deleted or renamed is the failure a syntax check cannot see.
+## What the fixtures show about the game
 
-The tests that carry the float engine:
+`fixtures/crafts.js` holds one published vector and three crafts made in the game. This is all the in-game evidence in the repository.
 
-- A differential test. 20,000 random contracts are compared against an independently written chain. Zero mismatches are allowed and every landing must be a float32 value. This replaced a weaker gate after two wrong formulas turned out to return float32 values and passed an "is it a float32" check.
-- Property tests. Random insertion orders must all land inside the exact landing set, every witness order must reproduce its landing, and the shares must sum to 1.
-- Locked vectors. A reference vector from floatjitsu and two real crafts, one of which separates forward order from reversed.
-- Ladder facts. Exactly one glitched float at 0.38 and one at 0.45, none at 0.07 or 0.15.
+| Fixture | Inputs | What it shows |
+|---|---|---|
+| Reference vector (floatjitsu) | 10 | the chain lands on the published float |
+| Craft K | 5 coverts into a knife | the game stored the forward prediction, which 58 of 120 orders reach |
+| Craft B | 10 | forward and reversed orders predict different steps, and the game stored the forward one |
+| Craft A | 10 | the game stored one step above the forward prediction: a miss |
 
-Weaknesses, as found: the suites used a home-made pass counter and no framework, hard-coded temporary paths, and unseeded random tests. The runner looked like a total regression on Windows until it was found that Node and the shell resolved the temporary folder to different places.
+The crafts are recorded results. The tests check the engine against the records. Nothing here can check the records against the game.
 
-## In game
+## Tests of the float engine
 
-Predictions were checked against crafts made in the game. A five-covert knife craft was reproduced bit for bit. A ten-input craft landed on the forward prediction and not on the reversed one, which is what established that slot 1 is added first. Another ten-input craft, predicted from 68.5% of orders, landed one step higher. That miss set the 75% threshold. The 0.38 glitched float was read off an in-game exterior label, which reversed what the tool had claimed for two weeks.
+- Differential (`test/differential.test.js`). 20,000 seeded random contracts are compared with a second implementation that shares no code with the engine and rounds through a `Float32Array`. No mismatch is allowed, and every landing must be a float32 value.
+- Properties (`test/orders.test.js`). For each recorded craft the shares sum to 1, the order counts sum to n factorial, every rebuilt click order reproduces its landing, and 300 seeded random orders all land inside the exact set. For five inputs the result equals brute force over all 120 orders.
+- Ladder facts (`test/wear.test.js`). Exactly one glitched float at 0.38 and one at 0.45, none at 0.07 or 0.15.
+- Cap safety (`test/settle.test.js`). On seeded pools the float64 core alone lands above a zero-margin cap in some orders. The solver's result never does, for five and ten inputs, under and over.
+- Edge cases (`test/edge.test.js`). An empty contract and a NaN float throw. The planner and the glitch scan give the same answer on every call.
 
-## In this repository
+## Tests on real floats
 
-`node --test`, no dependencies. Each module has its own test file. The solvers are pure functions here, so no DOM is needed.
+`test/showcase.test.js` runs on the 302 real floats in `fixtures/showcase.json`. It replays the recorded contracts, solves the filler and over-mode examples from scratch on those floats, and fails if `examples/SHOWCASE.md` differs from what `examples/showcase.js` prints.
 
-- The differential test and both crafts are carried over (`test/robustness.test.js`, `test/orders.test.js`, `test/engine.test.js`).
-- Random pools are seeded, so every run is identical.
-- The Monte Carlo simulator takes a seed, which the original did not.
-- `test/showcase.test.js` replays recorded runs on real floats and pins each result.
-- `test/quotas.test.js` has one test per repair phase.
+## Other tests
 
-What is not tested here: anything that needs the original interface, and the chained planner on real items.
+- `test/quotas.test.js` has one test per repair pass.
+- `test/readme.test.js` runs the usage example from the README.
+- The Monte Carlo simulator takes a seed, so its paths are pinned.
+
+## What is not tested
+
+- Anything that needs the original interface.
+- The chained planner and the glitch scan on real items. Both are tested on synthetic pools only.
+- Every price. All prices are invented samples.
+- The order in which the in-game grid displays items, and what happens when an item is removed and added again. I have notes on both and no fixture for either.

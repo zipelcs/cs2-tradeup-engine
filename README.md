@@ -2,22 +2,47 @@
 
 OPENING: Oliver writes this.
 
+## History
+
+I built this tool as a single HTML file between June and August 2026. I assembled this repository from those builds in November 2026, so the original commit history is not here. Each commit before November carries the file time of the build its code first appeared in. The tests, notes and examples were written during the assembly, and the commits from 11 November carry the time they were made.
+
+## Where to start
+
+Read [docs/pricing.md](docs/pricing.md) and [docs/float-model.md](docs/float-model.md) first. The pricing note covers how a float gets a price from a purchase history. The float model note covers how the stored float of a trade-up is predicted, and what that prediction has and has not been checked against.
+
 ## What it does
 
-- Predicts the stored float of a trade-up with float32 arithmetic at every step, on a model of the game's clamped remap verified against in-game crafts.
+- Predicts the stored float of a trade-up with float32 arithmetic at every step. The model reproduces a published reference vector and two recorded in-game crafts exactly. It missed a third recorded craft by one float32 step.
 - Counts every insertion order exactly: the share of orders behind each landing, with a click order for each.
-- Builds contracts that land just under a wear edge from the worst inputs that still fit, with conserve ranges, filler ranges and group quotas.
+- Builds contracts that land just under a wear edge from the worst inputs that still fit, with conserve ranges, filler ranges and group quotas. Every result is checked in float32 over all insertion orders before it is returned.
 - Lands on one exact float32 value and says how many orders reach it.
 - Picks the contract that beats a record float while keeping the best copies back.
 - Ranks the rare floats a pool can craft, and plans a two-stage craft when the fifth input has to be made first.
 - Prices floats from a purchase history and scores contracts by expected value, behind a price function you supply.
 
+## Usage
+
+```js
+import { landing, landingDistribution, adjust, wearOf, show } from './src/index.js';
+
+const inputs = [0.031, 0.044, 0.052, 0.038, 0.047].map(float => ({ float, min: 0, max: 0.4 }));
+const knife = { min: 0, max: 1 };
+
+const float = landing(inputs, knife); // the stored float32 for this click order
+console.log(show(float), wearOf(float));
+
+const adjs = inputs.map(i => adjust(i.float, i.min, i.max));
+for (const l of landingDistribution(adjs, knife.min, knife.max)) {
+  const clicks = l.order.map(i => i + 1).join(' ');
+  console.log(show(l.float), l.orders + ' of 120 orders', 'click', clicks);
+}
+```
+
 ## What it does not do
 
 - It does not optimise. The solvers are greedy passes with repair and local search. Several contracts from one pool are a sequential loop with an exclusion set.
 - It does not ship prices or fetch data. Every price here is an invented sample, and pools are plain JSON.
-- It does not guarantee a craft. A landing reached by fewer than all orders can miss, and one real craft at 68.5% did.
-- It does not carry the original commit history. The tool was built as a single HTML file from June to August 2026, and this repository was assembled from those builds in November 2026. Each commit carries the file time of the build its code first appeared in. The tests, notes and examples were written during the assembly.
+- It does not guarantee a craft. A landing reached by fewer than all orders can miss. The one recorded craft that missed was predicted from 68.501% of orders.
 
 ## Run
 
@@ -25,6 +50,7 @@ Node 18 or later, no dependencies.
 
     npm test
     node examples/showcase.js
+    node bench/accuracy.js
 
 ## Modules
 
@@ -33,7 +59,7 @@ Node 18 or later, no dependencies.
 | `f32`, `remap`, `tradeup` | float32 ladder, remap, landings, wear edges, safe caps |
 | `orders`, `robustness` | landing distribution over all orders, fragility verdict |
 | `solver` | Step-Solve, phantom check, feasibility report |
-| `maxfloat` | Max Float core, over and exact modes, windows, quotas, repair passes |
+| `maxfloat` | Max Float core, over and exact modes, windows, quotas, repair passes, the float32 check |
 | `custom` | Custom Float, closest sum, pool builder, sweep, exact float |
 | `multi` | xN, Solve-all, Diversify |
 | `hunter` | target check and the maximin pick |
@@ -43,11 +69,11 @@ Node 18 or later, no dependencies.
 | `parsers` | purchase text parsers, multi-page import |
 | `catalogue`, `names`, `phase` | catalogue helpers, name resolver, Doppler phase lookup |
 
-## Design notes
+## Notes and examples
 
-One note per subsystem in [docs/](docs/): what was tried first, what broke and what replaced it. Start with [the float model](docs/float-model.md) and [insertion order](docs/insertion-order.md).
+There is one note per subsystem in [docs/](docs/). After the two above, [insertion order](docs/insertion-order.md) and [testing](docs/testing.md) explain the most.
 
-Recorded runs on real floats are in [examples/SHOWCASE.md](examples/SHOWCASE.md).
+[examples/SHOWCASE.md](examples/SHOWCASE.md) runs the engine on real floats. `bench/accuracy.js` prints every percentage the notes quote.
 
 ## Credit and licence
 

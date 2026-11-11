@@ -1,6 +1,6 @@
 {
   "name": "cs2-tradeup-engine",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "CS2 trade-up solvers on a float32 engine: max float, exact floats, insertion order, rare floats, chained crafts.",
   "type": "module",
   "main": "src/index.js",
