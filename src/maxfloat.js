@@ -8,6 +8,13 @@
 //
 // None of this is an optimiser. It is a greedy with a feasibility test, local swaps and repair passes,
 // all bounded by iteration guards. It can return null when a feasible answer exists.
+//
+// The cores budget the adjusted sum in float64. That is a pre-filter only. The game forms the mean
+// with float32 additions in insertion order, so a float64 sum that fits the budget can still land
+// above the cap in some orders. solve() therefore finishes with settle(), which enumerates every
+// insertion order in float32 and swaps inputs until no order breaches the cap.
+
+import { landingDistribution } from './orders.js';
 
 const af = c => +c.adj;
 const sumOf = sel => sel.reduce((a, c) => a + af(c), 0);
@@ -339,6 +346,62 @@ export function enforceQuotas(sel, pool, ctx) {
   return sel;
 }
 
+// ---- float32 check ------------------------------------------------------------------------------
+
+/**
+ * The worst landing of a selection over every insertion order, in float32, against each output range.
+ * Returns the landing furthest past the cap in the direction of the objective (highest for 'under',
+ * lowest for 'over'), or null when no order breaches the cap.
+ * @param {object[]} sel
+ * @param {'under'|'over'} objective
+ * @param {number} cap                                   output float the landings must not pass
+ * @param {{min:number,max:number}|{min:number,max:number}[]} [out]  output range(s), 0 to 1 by default
+ */
+export function breach(sel, objective, cap, out = { min: 0, max: 1 }) {
+  const adjs = sel.map(af);
+  let worst = null;
+  for (const o of Array.isArray(out) ? out : [out]) {
+    if (!(o.max > o.min)) continue;
+    // an outcome that can never reach the cap is skipped, as targetAdjusted skips it
+    if (objective === 'under' ? cap <= o.min : cap > o.max) continue;
+    for (const l of landingDistribution(adjs, o.min, o.max)) {
+      if (objective === 'under' ? l.float > cap : l.float < cap) {
+        if (worst == null || (objective === 'under' ? l.float > worst : l.float < worst)) worst = l.float;
+      }
+    }
+  }
+  return worst;
+}
+
+/**
+ * Step a selection away from the cap until no insertion order breaches it. Each step is the swap
+ * that moves the adjusted sum by the least: one selected input for the nearest unused input on the
+ * safe side with the same group membership. The sum moves strictly one way, so the loop ends; it is
+ * also bounded by an iteration budget. Returns null when the pool runs out of swaps.
+ * @param {object[]} sel
+ * @param {object[]} pool    every candidate the solver was offered
+ * @param {{objective:'under'|'over', cap:number, out?:object|object[], same?:(r:object, cur:object)=>boolean, budget?:number}} ctx
+ */
+export function settle(sel, pool, ctx) {
+  const under = ctx.objective !== 'over', same = ctx.same || (() => true);
+  sel = sel.slice();
+  for (let step = 0; step <= (ctx.budget || 400); step++) {
+    if (breach(sel, under ? 'under' : 'over', ctx.cap, ctx.out) == null) return sel;
+    const inSel = new Set(sel);
+    let bi = -1, bestRepl = null, bestD = Infinity;
+    for (let i = 0; i < sel.length; i++) {
+      for (const r of pool) {
+        if (inSel.has(r) || !same(r, sel[i])) continue;
+        const d = under ? af(sel[i]) - af(r) : af(r) - af(sel[i]);
+        if (d > 0 && d < bestD) { bestD = d; bi = i; bestRepl = r; }
+      }
+    }
+    if (bi < 0) return null;
+    sel[bi] = bestRepl;
+  }
+  return null;
+}
+
 // ---- entry point --------------------------------------------------------------------------------
 
 /**
@@ -352,6 +415,10 @@ export function enforceQuotas(sel, pool, ctx) {
  *              'exact'  as close to the target as possible (Custom Float)
  *              'none'   no float target: the n cheapest
  *   T          target mean adjusted float (see targetAdjusted)
+ *   out, cap   the output range (or ranges) and the output float no insertion order may pass. With
+ *              both given, 'under' and 'over' results are checked against that cap in float32 over
+ *              every insertion order. Without them the float32 mean itself is checked against T,
+ *              which is exact for a 0 to 1 output. Pass them for any other range.
  *   window, fillerWindow, exclude   see candidates()
  *   rules      group rules, see activeQuotas()
  *   strategy   'bal' or 'offset'
@@ -380,6 +447,16 @@ export function solve(items, opts) {
     sel = enforceQuotas(underCore(pool, n, T * n), full, ctx);
   }
   if (!sel || !quotaOK(sel, ctx.quotas, true)) return null;
+  if (obj === 'under' || obj === 'over') {
+    const checked = opts.out != null && opts.cap != null;
+    sel = settle(sel, full, {
+      objective: obj,
+      cap: checked ? opts.cap : T,
+      out: checked ? opts.out : { min: 0, max: 1 },
+      same: (r, cur) => ctx.quotas.every(q => !!r[q.tag] === !!cur[q.tag]),
+    });
+    if (!sel || !quotaOK(sel, ctx.quotas, true)) return null;
+  }
   return sel;
 }
 

@@ -3,6 +3,7 @@
 
 import { RARITIES, isGold, covertsOfCase, outcomesFor, byName } from './catalogue.js';
 import { lsPick } from './listing.js';
+import { settle } from './maxfloat.js';
 
 /** Can this skin be the output of any contract at all? */
 export function canBeTarget(catalogue, s) {
@@ -117,7 +118,12 @@ export function huntSolve(target, record, items, catalogue, opts = {}) {
   if (!cands.some(c => c.on)) return { ok: false, why: 'no input can produce the target' };
   if (cands.length < n) return { ok: false, why: `need ${n} inputs, ${cands.length} eligible` };
   const T = (threshold - target.min) / (target.max - target.min);
-  const sel = huntPick(cands, n, T, opts);
+  let sel = huntPick(cands, n, T, opts);
   if (!sel) return { ok: false, why: 'the inventory cannot average low enough to beat the record' };
+  if (opts.mode !== 'highest' && opts.mode !== 'lowest') {
+    // the pick budgets in float64; the bar has to hold in float32 for every insertion order
+    sel = settle(sel, cands, { objective: 'under', cap: threshold, out: target, same: (r, cur) => !cur.on || !!r.on });
+    if (!sel) return { ok: false, why: 'no pick stays at or under the record in every insertion order' };
+  }
   return { ok: true, sel, n, T };
 }
