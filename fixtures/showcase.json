@@ -1,0 +1,2117 @@
+{
+ "note": "Real floats from an owned pool of 893 non-StatTrak coverts (eleven skins from the cases that drop the Karambit). Only the items each example uses are kept. No prices.",
+ "target": "★ Karambit | Case Hardened",
+ "pool": {
+  "size": 893
+ },
+ "batch": {
+  "settings": {
+   "n": 5,
+   "objective": "under",
+   "cap": 0.06999990344047546,
+   "T": 0.06999990344047546,
+   "window": {
+    "lo": 0.02
+   }
+  },
+  "supported": 128,
+  "supportedWithoutConserve": 175,
+  "conserved": 145,
+  "ms": 37.919,
+  "contracts": [
+   [
+    {
+     "id": "R8-Revolver-Fade#70",
+     "name": "R8 Revolver | Fade",
+     "float": 0.01549548376351595
+    },
+    {
+     "id": "CZ75-Auto-Victoria#95",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.0320664718747139
+    },
+    {
+     "id": "CZ75-Auto-Victoria#160",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.042814627289772034
+    },
+    {
+     "id": "R8-Revolver-Fade#212",
+     "name": "R8 Revolver | Fade",
+     "float": 0.041845496743917465
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#186",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04272224009037018
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#84",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.030184008181095123
+    },
+    {
+     "id": "CZ75-Auto-Victoria#129",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.038131676614284515
+    },
+    {
+     "id": "CZ75-Auto-Victoria#234",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05134963244199753
+    },
+    {
+     "id": "R8-Revolver-Fade#184",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03716174513101578
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#157",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03901655972003937
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#142",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.039680659770965576
+    },
+    {
+     "id": "CZ75-Auto-Victoria#155",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.042265281081199646
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#98",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.028035759925842285
+    },
+    {
+     "id": "CZ75-Auto-Victoria#280",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.06284019351005554
+    },
+    {
+     "id": "R8-Revolver-Fade#140",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03474477678537369
+    }
+   ],
+   [
+    {
+     "id": "Sawed-Off-The-Kraken#73",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.020536692813038826
+    },
+    {
+     "id": "CZ75-Auto-Victoria#134",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.038528382778167725
+    },
+    {
+     "id": "CZ75-Auto-Victoria#135",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.038592249155044556
+    },
+    {
+     "id": "R8-Revolver-Fade#179",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03706996515393257
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#173",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04126214608550072
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#26",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.017964176833629608
+    },
+    {
+     "id": "CZ75-Auto-Victoria#110",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03481365367770195
+    },
+    {
+     "id": "P2000-Fire-Elemental#35",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.050333622843027115
+    },
+    {
+     "id": "R8-Revolver-Fade#174",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03648466616868973
+    },
+    {
+     "id": "CZ75-Auto-Victoria#313",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.0783960372209549
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#36",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02046327292919159
+    },
+    {
+     "id": "P2000-Fire-Elemental#21",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.023399149999022484
+    },
+    {
+     "id": "CZ75-Auto-Victoria#187",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04627325385808945
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#184",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.042419396340847015
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#196",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.0463881641626358
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#37",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.020530812442302704
+    },
+    {
+     "id": "CZ75-Auto-Victoria#128",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.038066379725933075
+    },
+    {
+     "id": "R8-Revolver-Fade#75",
+     "name": "R8 Revolver | Fade",
+     "float": 0.020484743639826775
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#104",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.032219331711530685
+    },
+    {
+     "id": "AWP-Asiimov#9",
+     "name": "AWP | Asiimov",
+     "float": 0.29488998651504517
+    }
+   ],
+   [
+    {
+     "id": "Sawed-Off-The-Kraken#46",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.011749796569347382
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#70",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.019543537870049477
+    },
+    {
+     "id": "R8-Revolver-Fade#92",
+     "name": "R8 Revolver | Fade",
+     "float": 0.02708994783461094
+    },
+    {
+     "id": "CZ75-Auto-Victoria#237",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05151478201150894
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#209",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.054141975939273834
+    }
+   ],
+   [
+    {
+     "id": "P2000-Fire-Elemental#17",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.018540440127253532
+    },
+    {
+     "id": "CZ75-Auto-Victoria#73",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02811804786324501
+    },
+    {
+     "id": "CZ75-Auto-Victoria#216",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04996221140027046
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#145",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03574603423476219
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#204",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.05025067552924156
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#71",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.027959072962403297
+    },
+    {
+     "id": "P2000-Fire-Elemental#29",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.034275420010089874
+    },
+    {
+     "id": "R8-Revolver-Fade#108",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03256499767303467
+    },
+    {
+     "id": "R8-Revolver-Fade#139",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03468868508934975
+    },
+    {
+     "id": "R8-Revolver-Fade#155",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03498433902859688
+    }
+   ],
+   [
+    {
+     "id": "Sawed-Off-The-Kraken#77",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.021205555647611618
+    },
+    {
+     "id": "CZ75-Auto-Victoria#172",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04482000321149826
+    },
+    {
+     "id": "CZ75-Auto-Victoria#251",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.052258677780628204
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#103",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.032079171389341354
+    },
+    {
+     "id": "R8-Revolver-Fade#150",
+     "name": "R8 Revolver | Fade",
+     "float": 0.034939780831336975
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#75",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02822570689022541
+    },
+    {
+     "id": "CZ75-Auto-Victoria#109",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.034786298871040344
+    },
+    {
+     "id": "CZ75-Auto-Victoria#153",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.0421416312456131
+    },
+    {
+     "id": "R8-Revolver-Fade#104",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03211545571684837
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#206",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.05180240795016289
+    }
+   ],
+   [
+    {
+     "id": "Sawed-Off-The-Kraken#56",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.014707694761455059
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#63",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.017369136214256287
+    },
+    {
+     "id": "CZ75-Auto-Victoria#150",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.041480936110019684
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#187",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04274864122271538
+    },
+    {
+     "id": "R8-Revolver-Fade#217",
+     "name": "R8 Revolver | Fade",
+     "float": 0.04305116459727287
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#66",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02709321305155754
+    },
+    {
+     "id": "CZ75-Auto-Victoria#139",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.0393768846988678
+    },
+    {
+     "id": "CZ75-Auto-Victoria#179",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.045400381088256836
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#160",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03930779546499252
+    },
+    {
+     "id": "R8-Revolver-Fade#211",
+     "name": "R8 Revolver | Fade",
+     "float": 0.04102775454521179
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#39",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.020778745412826538
+    },
+    {
+     "id": "CZ75-Auto-Victoria#62",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02630312368273735
+    },
+    {
+     "id": "R8-Revolver-Fade#116",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03322429582476616
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#158",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03902306407690048
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#185",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04264211282134056
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#42",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.021806787699460983
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#66",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.018675340339541435
+    },
+    {
+     "id": "CZ75-Auto-Victoria#173",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04496103525161743
+    },
+    {
+     "id": "CZ75-Auto-Victoria#308",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.07582786679267883
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#193",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04527343064546585
+    }
+   ],
+   [
+    {
+     "id": "Sawed-Off-The-Kraken#61",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.016253337264060974
+    },
+    {
+     "id": "CZ75-Auto-Victoria#91",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.031194888055324554
+    },
+    {
+     "id": "CZ75-Auto-Victoria#200",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04797643795609474
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#137",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03448779508471489
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#197",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04703396186232567
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#56",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02373238280415535
+    },
+    {
+     "id": "CZ75-Auto-Victoria#228",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05083899945020676
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#111",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03275393694639206
+    },
+    {
+     "id": "R8-Revolver-Fade#118",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03331887349486351
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#131",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03415558859705925
+    }
+   ],
+   [
+    {
+     "id": "R8-Revolver-Fade#54",
+     "name": "R8 Revolver | Fade",
+     "float": 0.011335927993059158
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#49",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.012561705894768238
+    },
+    {
+     "id": "CZ75-Auto-Victoria#267",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.055266570299863815
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#121",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03324250876903534
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#207",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.05338415503501892
+    }
+   ],
+   [
+    {
+     "id": "R8-Revolver-Fade#59",
+     "name": "R8 Revolver | Fade",
+     "float": 0.01277547050267458
+    },
+    {
+     "id": "CZ75-Auto-Victoria#58",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.024648109450936317
+    },
+    {
+     "id": "CZ75-Auto-Victoria#67",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.027188416570425034
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#202",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.0497187077999115
+    },
+    {
+     "id": "CZ75-Auto-Victoria#325",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.09348651766777039
+    }
+   ],
+   [
+    {
+     "id": "P2000-Fire-Elemental#15",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.01476196851581335
+    },
+    {
+     "id": "CZ75-Auto-Victoria#118",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03568635135889053
+    },
+    {
+     "id": "CZ75-Auto-Victoria#194",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.047267548739910126
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#96",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.027269396930933
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#213",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.05864701420068741
+    }
+   ],
+   [
+    {
+     "id": "Sawed-Off-The-Kraken#44",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.01137414202094078
+    },
+    {
+     "id": "R8-Revolver-Fade#68",
+     "name": "R8 Revolver | Fade",
+     "float": 0.014773964881896973
+    },
+    {
+     "id": "R8-Revolver-Fade#89",
+     "name": "R8 Revolver | Fade",
+     "float": 0.025979170575737953
+    },
+    {
+     "id": "R8-Revolver-Fade#214",
+     "name": "R8 Revolver | Fade",
+     "float": 0.04212849959731102
+    },
+    {
+     "id": "CZ75-Auto-Victoria#319",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.08577004075050354
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#61",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.025989504531025887
+    },
+    {
+     "id": "R8-Revolver-Fade#80",
+     "name": "R8 Revolver | Fade",
+     "float": 0.022871671244502068
+    },
+    {
+     "id": "CZ75-Auto-Victoria#271",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05593734234571457
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#134",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03440048545598984
+    },
+    {
+     "id": "CZ75-Auto-Victoria#303",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.07318748533725739
+    }
+   ],
+   [
+    {
+     "id": "Sawed-Off-The-Kraken#35",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.008705216459929943
+    },
+    {
+     "id": "CZ75-Auto-Victoria#72",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.028004560619592667
+    },
+    {
+     "id": "R8-Revolver-Fade#112",
+     "name": "R8 Revolver | Fade",
+     "float": 0.032869722694158554
+    },
+    {
+     "id": "R8-Revolver-Fade#188",
+     "name": "R8 Revolver | Fade",
+     "float": 0.037365105003118515
+    },
+    {
+     "id": "R8-Revolver-Fade#223",
+     "name": "R8 Revolver | Fade",
+     "float": 0.046123988926410675
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#34",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.01969362050294876
+    },
+    {
+     "id": "CZ75-Auto-Victoria#246",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.052041195333004
+    },
+    {
+     "id": "CZ75-Auto-Victoria#266",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05517682805657387
+    },
+    {
+     "id": "R8-Revolver-Fade#135",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03454438969492912
+    },
+    {
+     "id": "R8-Revolver-Fade#191",
+     "name": "R8 Revolver | Fade",
+     "float": 0.037769194692373276
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#30",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.01859515905380249
+    },
+    {
+     "id": "CZ75-Auto-Victoria#158",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04267140477895737
+    },
+    {
+     "id": "P2000-Fire-Elemental#30",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.034699905663728714
+    },
+    {
+     "id": "R8-Revolver-Fade#172",
+     "name": "R8 Revolver | Fade",
+     "float": 0.036378223448991776
+    },
+    {
+     "id": "CZ75-Auto-Victoria#321",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.0896490067243576
+    }
+   ],
+   [
+    {
+     "id": "P2000-Fire-Elemental#18",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.018616773188114166
+    },
+    {
+     "id": "CZ75-Auto-Victoria#87",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.030606649816036224
+    },
+    {
+     "id": "R8-Revolver-Fade#88",
+     "name": "R8 Revolver | Fade",
+     "float": 0.025776872411370277
+    },
+    {
+     "id": "R8-Revolver-Fade#169",
+     "name": "R8 Revolver | Fade",
+     "float": 0.036239270120859146
+    },
+    {
+     "id": "CZ75-Auto-Victoria#324",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.09234173595905304
+    }
+   ],
+   [
+    {
+     "id": "Sawed-Off-The-Kraken#47",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.012125262059271336
+    },
+    {
+     "id": "CZ75-Auto-Victoria#92",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03130381554365158
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#99",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.028350744396448135
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#172",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.040987491607666016
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#179",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04184092953801155
+    }
+   ],
+   [
+    {
+     "id": "R8-Revolver-Fade#61",
+     "name": "R8 Revolver | Fade",
+     "float": 0.013472102582454681
+    },
+    {
+     "id": "CZ75-Auto-Victoria#162",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04318251460790634
+    },
+    {
+     "id": "R8-Revolver-Fade#114",
+     "name": "R8 Revolver | Fade",
+     "float": 0.032975681126117706
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#123",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03328286111354828
+    },
+    {
+     "id": "R8-Revolver-Fade#185",
+     "name": "R8 Revolver | Fade",
+     "float": 0.0372384749352932
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#114",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03543525189161301
+    },
+    {
+     "id": "CZ75-Auto-Victoria#208",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04885606840252876
+    },
+    {
+     "id": "CZ75-Auto-Victoria#215",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04986068978905678
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#118",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.033084686845541
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#143",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.035367365926504135
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#48",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.022594567388296127
+    },
+    {
+     "id": "CZ75-Auto-Victoria#192",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04706079512834549
+    },
+    {
+     "id": "R8-Revolver-Fade#122",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03350880742073059
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#128",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.033916037529706955
+    },
+    {
+     "id": "CZ75-Auto-Victoria#291",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.06642266362905502
+    }
+   ],
+   [
+    {
+     "id": "R8-Revolver-Fade#66",
+     "name": "R8 Revolver | Fade",
+     "float": 0.014499870128929615
+    },
+    {
+     "id": "CZ75-Auto-Victoria#223",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.050628967583179474
+    },
+    {
+     "id": "CZ75-Auto-Victoria#229",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.0508759506046772
+    },
+    {
+     "id": "CZ75-Auto-Victoria#269",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05550805851817131
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#177",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.0417596660554409
+    }
+   ],
+   [
+    {
+     "id": "P2000-Fire-Elemental#20",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.023061301559209824
+    },
+    {
+     "id": "CZ75-Auto-Victoria#113",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03527103364467621
+    },
+    {
+     "id": "CZ75-Auto-Victoria#167",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.043919458985328674
+    },
+    {
+     "id": "CZ75-Auto-Victoria#275",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.06066356599330902
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#203",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.05003675818443298
+    }
+   ],
+   [
+    {
+     "id": "P2000-Fire-Elemental#16",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.018201669678092003
+    },
+    {
+     "id": "P90-Death-by-Kitty#10",
+     "name": "P90 | Death by Kitty",
+     "float": 0.091021329164505
+    },
+    {
+     "id": "CZ75-Auto-Victoria#285",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.06491434574127197
+    },
+    {
+     "id": "P2000-Fire-Elemental#40",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.055453114211559296
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#152",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03790673241019249
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#63",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02636142633855343
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#81",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.021526319906115532
+    },
+    {
+     "id": "R8-Revolver-Fade#98",
+     "name": "R8 Revolver | Fade",
+     "float": 0.02894904650747776
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#117",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03303711116313934
+    },
+    {
+     "id": "R8-Revolver-Fade#215",
+     "name": "R8 Revolver | Fade",
+     "float": 0.04242788627743721
+    }
+   ],
+   [
+    {
+     "id": "R8-Revolver-Fade#63",
+     "name": "R8 Revolver | Fade",
+     "float": 0.013554224744439125
+    },
+    {
+     "id": "CZ75-Auto-Victoria#115",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03556933254003525
+    },
+    {
+     "id": "CZ75-Auto-Victoria#168",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04406575858592987
+    },
+    {
+     "id": "R8-Revolver-Fade#160",
+     "name": "R8 Revolver | Fade",
+     "float": 0.034999996423721313
+    },
+    {
+     "id": "CZ75-Auto-Victoria#323",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.09182535111904144
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#47",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.022566478699445724
+    },
+    {
+     "id": "R8-Revolver-Fade#64",
+     "name": "R8 Revolver | Fade",
+     "float": 0.0135679692029953
+    },
+    {
+     "id": "CZ75-Auto-Victoria#126",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.037145763635635376
+    },
+    {
+     "id": "CZ75-Auto-Victoria#207",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04867711663246155
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#215",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.06862416118383408
+    }
+   ],
+   [
+    {
+     "id": "Sawed-Off-The-Kraken#41",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.010064929723739624
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#92",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.025328153744339943
+    },
+    {
+     "id": "R8-Revolver-Fade#100",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03080231510102749
+    },
+    {
+     "id": "CZ75-Auto-Victoria#274",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.060260333120822906
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#175",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04166554659605026
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#74",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02818438969552517
+    },
+    {
+     "id": "CZ75-Auto-Victoria#99",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03266354277729988
+    },
+    {
+     "id": "CZ75-Auto-Victoria#127",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.0379389226436615
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#189",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04350029677152634
+    },
+    {
+     "id": "R8-Revolver-Fade#219",
+     "name": "R8 Revolver | Fade",
+     "float": 0.04381316900253296
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#94",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.032041996717453
+    },
+    {
+     "id": "CZ75-Auto-Victoria#111",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03485368192195892
+    },
+    {
+     "id": "CZ75-Auto-Victoria#218",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05014840140938759
+    },
+    {
+     "id": "R8-Revolver-Fade#120",
+     "name": "R8 Revolver | Fade",
+     "float": 0.033369552344083786
+    },
+    {
+     "id": "R8-Revolver-Fade#221",
+     "name": "R8 Revolver | Fade",
+     "float": 0.04420671984553337
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#97",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03243440389633179
+    },
+    {
+     "id": "AWP-Asiimov#7",
+     "name": "AWP | Asiimov",
+     "float": 0.22942380607128143
+    },
+    {
+     "id": "CZ75-Auto-Victoria#197",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04762784019112587
+    },
+    {
+     "id": "R8-Revolver-Fade#101",
+     "name": "R8 Revolver | Fade",
+     "float": 0.031056880950927734
+    },
+    {
+     "id": "CZ75-Auto-Victoria#315",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.07900100201368332
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#23",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.01765163615345955
+    },
+    {
+     "id": "R8-Revolver-Fade#79",
+     "name": "R8 Revolver | Fade",
+     "float": 0.022449467331171036
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#116",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03300270810723305
+    },
+    {
+     "id": "R8-Revolver-Fade#138",
+     "name": "R8 Revolver | Fade",
+     "float": 0.034638889133930206
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#169",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.040494512766599655
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#46",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.022564075887203217
+    },
+    {
+     "id": "CZ75-Auto-Victoria#133",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03835888206958771
+    },
+    {
+     "id": "CZ75-Auto-Victoria#242",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05171682685613632
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#135",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03440135344862938
+    },
+    {
+     "id": "CZ75-Auto-Victoria#318",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.08535726368427277
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#122",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.036717578768730164
+    },
+    {
+     "id": "CZ75-Auto-Victoria#143",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.039876438677310944
+    },
+    {
+     "id": "CZ75-Auto-Victoria#145",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04034850373864174
+    },
+    {
+     "id": "CZ75-Auto-Victoria#227",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.050801217555999756
+    },
+    {
+     "id": "CZ75-Auto-Victoria#326",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.09475585073232651
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#70",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02774316631257534
+    },
+    {
+     "id": "CZ75-Auto-Victoria#104",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.033828288316726685
+    },
+    {
+     "id": "CZ75-Auto-Victoria#262",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05454781651496887
+    },
+    {
+     "id": "R8-Revolver-Fade#142",
+     "name": "R8 Revolver | Fade",
+     "float": 0.034804411232471466
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#188",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04326509311795235
+    }
+   ],
+   [
+    {
+     "id": "P2000-Fire-Elemental#22",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.024728959426283836
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#69",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.019440002739429474
+    },
+    {
+     "id": "CZ75-Auto-Victoria#270",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05553428828716278
+    },
+    {
+     "id": "CZ75-Auto-Victoria#287",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.0651361420750618
+    },
+    {
+     "id": "R8-Revolver-Fade#205",
+     "name": "R8 Revolver | Fade",
+     "float": 0.039716240018606186
+    }
+   ],
+   [
+    {
+     "id": "R8-Revolver-Fade#72",
+     "name": "R8 Revolver | Fade",
+     "float": 0.01630130223929882
+    },
+    {
+     "id": "CZ75-Auto-Victoria#131",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03824415057897568
+    },
+    {
+     "id": "CZ75-Auto-Victoria#195",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04746489226818085
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#148",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.0361146405339241
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#180",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04187234863638878
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#31",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.018616022542119026
+    },
+    {
+     "id": "P90-Death-by-Kitty#9",
+     "name": "P90 | Death by Kitty",
+     "float": 0.0863567590713501
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#86",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.022509535774588585
+    },
+    {
+     "id": "R8-Revolver-Fade#208",
+     "name": "R8 Revolver | Fade",
+     "float": 0.04040613770484924
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#211",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.05656095966696739
+    }
+   ],
+   [
+    {
+     "id": "R8-Revolver-Fade#53",
+     "name": "R8 Revolver | Fade",
+     "float": 0.010769571177661419
+    },
+    {
+     "id": "CZ75-Auto-Victoria#88",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.030788104981184006
+    },
+    {
+     "id": "CZ75-Auto-Victoria#121",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.03645709529519081
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#195",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04560844227671623
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#198",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04775765538215637
+    }
+   ],
+   [
+    {
+     "id": "CZ75-Auto-Victoria#147",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.04051458090543747
+    },
+    {
+     "id": "CZ75-Auto-Victoria#175",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.044994719326496124
+    },
+    {
+     "id": "CZ75-Auto-Victoria#256",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.05250636488199234
+    },
+    {
+     "id": "R8-Revolver-Fade#102",
+     "name": "R8 Revolver | Fade",
+     "float": 0.032029855996370316
+    },
+    {
+     "id": "CZ75-Auto-Victoria#283",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.0644279420375824
+    }
+   ]
+  ],
+  "compare": {
+   "casualTarget": 0.061,
+   "casualBuilt": 50,
+   "valueMax": 8704.40989272636,
+   "valueCasual": 9179.215150932656,
+   "extraAfterMax": 125,
+   "extraAfterCasual": 125,
+   "lowLeftMax": 145,
+   "lowLeftCasual": 126,
+   "casualMeanLanding": 0.06100000008940697,
+   "maxMeanLanding": 0.0699998964369297
+  }
+ },
+ "fillers": {
+  "settings": {
+   "n": 5,
+   "objective": "under",
+   "T": 0.06999990344047546,
+   "window": {
+    "lo": 0.05,
+    "hi": 0.2
+   },
+   "fillerWindow": {
+    "lo": 0.02,
+    "hi": 0.06
+   },
+   "rules": [
+    {
+     "group": "pool",
+     "mode": "exact",
+     "k": 3
+    }
+   ]
+  },
+  "collection": "R8 Revolver | Fade",
+  "runs": [
+   {
+    "strategy": "bal",
+    "ms": 0.6679,
+    "items": [
+     {
+      "id": "Sawed-Off-The-Kraken#35",
+      "name": "Sawed-Off | The Kraken",
+      "float": 0.008705216459929943,
+      "pool": false
+     },
+     {
+      "id": "Sawed-Off-The-Kraken#36",
+      "name": "Sawed-Off | The Kraken",
+      "float": 0.008742358535528183,
+      "pool": false
+     },
+     {
+      "id": "R8-Revolver-Fade#209",
+      "name": "R8 Revolver | Fade",
+      "float": 0.04062928631901741,
+      "pool": true
+     },
+     {
+      "id": "R8-Revolver-Fade#210",
+      "name": "R8 Revolver | Fade",
+      "float": 0.04089081287384033,
+      "pool": true
+     },
+     {
+      "id": "R8-Revolver-Fade#211",
+      "name": "R8 Revolver | Fade",
+      "float": 0.04102775454521179,
+      "pool": true
+     }
+    ]
+   },
+   {
+    "strategy": "offset",
+    "ms": 0.6422,
+    "items": [
+     {
+      "id": "CZ75-Auto-Victoria#21",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.015143687836825848,
+      "pool": false
+     },
+     {
+      "id": "Sawed-Off-The-Kraken#32",
+      "name": "Sawed-Off | The Kraken",
+      "float": 0.008299710229039192,
+      "pool": false
+     },
+     {
+      "id": "R8-Revolver-Fade#209",
+      "name": "R8 Revolver | Fade",
+      "float": 0.04062928631901741,
+      "pool": true
+     },
+     {
+      "id": "R8-Revolver-Fade#213",
+      "name": "R8 Revolver | Fade",
+      "float": 0.04193883389234543,
+      "pool": true
+     },
+     {
+      "id": "R8-Revolver-Fade#211",
+      "name": "R8 Revolver | Fade",
+      "float": 0.04102775454521179,
+      "pool": true
+     }
+    ]
+   }
+  ]
+ },
+ "exact": [
+  {
+   "label": "0.0696969 run of 69s",
+   "target": 0.06969697028398514,
+   "opts": {
+    "minShare": 1
+   },
+   "candidates": 628,
+   "share": 1,
+   "landings": 1,
+   "nodes": 2253823,
+   "subsets": 5072,
+   "ms": 474.8002,
+   "verdict": "ROBUST",
+   "tier": "A",
+   "score": 52,
+   "difficulty": 1,
+   "order": [
+    {
+     "id": "R8-Revolver-Fade#195",
+     "name": "R8 Revolver | Fade",
+     "float": 0.0383107028901577
+    },
+    {
+     "id": "R8-Revolver-Fade#190",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03771447762846947
+    },
+    {
+     "id": "R8-Revolver-Fade#161",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03508124127984047
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#61",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.016253337264060974
+    },
+    {
+     "id": "CZ75-Auto-Victoria#46",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.022564075887203217
+    }
+   ],
+   "others": []
+  },
+  {
+   "label": "0.0696969 fragile",
+   "target": 0.06969697028398514,
+   "opts": {
+    "minShare": 0.6,
+    "maxShare": 0.8
+   },
+   "candidates": 628,
+   "share": 0.65,
+   "landings": 3,
+   "nodes": 6855,
+   "subsets": 12,
+   "ms": 3.3192,
+   "verdict": "FRAGILE",
+   "tier": "A",
+   "score": 52,
+   "difficulty": 1,
+   "order": [
+    {
+     "id": "Sawed-Off-The-Kraken#190",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.04411158710718155
+    },
+    {
+     "id": "R8-Revolver-Fade#200",
+     "name": "R8 Revolver | Fade",
+     "float": 0.039097268134355545
+    },
+    {
+     "id": "R8-Revolver-Fade#104",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03211545571684837
+    },
+    {
+     "id": "CZ75-Auto-Victoria#47",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.022566478699445724
+    },
+    {
+     "id": "CZ75-Auto-Victoria#46",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.022564075887203217
+    }
+   ],
+   "others": [
+    {
+     "float": 0.06969697773456573,
+     "share": 0.2
+    },
+    {
+     "float": 0.06969696283340454,
+     "share": 0.15
+    }
+   ]
+  },
+  {
+   "label": "seven 8s",
+   "target": 0.00888888817280531,
+   "opts": {
+    "minShare": 1
+   },
+   "candidates": 197,
+   "share": 1,
+   "landings": 1,
+   "nodes": 23297,
+   "subsets": 7,
+   "ms": 5.8125,
+   "verdict": "ROBUST",
+   "tier": "S",
+   "score": 216,
+   "difficulty": 1,
+   "order": [
+    {
+     "id": "CZ75-Auto-Victoria#45",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.02240665629506111
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#16",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.003685754956677556
+    },
+    {
+     "id": "SSG-08-Blood-in-the-Water#16",
+     "name": "SSG 08 | Blood in the Water",
+     "float": 0.06072187051177025
+    },
+    {
+     "id": "SSG-08-Blood-in-the-Water#2",
+     "name": "SSG 08 | Blood in the Water",
+     "float": 0.060025863349437714
+    },
+    {
+     "id": "AWP-Asiimov#1",
+     "name": "AWP | Asiimov",
+     "float": 0.1800111085176468
+    }
+   ],
+   "others": []
+  },
+  {
+   "label": "S 8-rep depth 1",
+   "target": 0.08888880163431168,
+   "opts": {},
+   "candidates": 445,
+   "share": 0.36666666666666664,
+   "landings": 2,
+   "nodes": 15704,
+   "subsets": 7,
+   "ms": 4.767,
+   "verdict": "FRAGILE",
+   "tier": "S",
+   "score": 130,
+   "difficulty": 1,
+   "order": [
+    {
+     "id": "SSG-08-Blood-in-the-Water#19",
+     "name": "SSG 08 | Blood in the Water",
+     "float": 0.07999667525291443
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#155",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.03845783323049545
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#90",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.023601572960615158
+    },
+    {
+     "id": "R8-Revolver-Fade#158",
+     "name": "R8 Revolver | Fade",
+     "float": 0.034998148679733276
+    },
+    {
+     "id": "R8-Revolver-Fade#82",
+     "name": "R8 Revolver | Fade",
+     "float": 0.0235866978764534
+    }
+   ],
+   "others": [
+    {
+     "float": 0.08888880908489227,
+     "share": 0.6333333333333333
+    }
+   ]
+  },
+  {
+   "label": "S 6-rep depth 1",
+   "target": 0.0666666030883789,
+   "opts": {},
+   "candidates": 592,
+   "share": 0.8833333333333333,
+   "landings": 2,
+   "nodes": 11487,
+   "subsets": 14,
+   "ms": 5.2349,
+   "verdict": "OK",
+   "tier": "S",
+   "score": 130,
+   "difficulty": 1,
+   "order": [
+    {
+     "id": "R8-Revolver-Fade#224",
+     "name": "R8 Revolver | Fade",
+     "float": 0.046177517622709274
+    },
+    {
+     "id": "R8-Revolver-Fade#187",
+     "name": "R8 Revolver | Fade",
+     "float": 0.03731755539774895
+    },
+    {
+     "id": "CZ75-Auto-Victoria#132",
+     "name": "CZ75-Auto | Victoria",
+     "float": 0.038267213851213455
+    },
+    {
+     "id": "P2000-Fire-Elemental#19",
+     "name": "P2000 | Fire Elemental",
+     "float": 0.022081881761550903
+    },
+    {
+     "id": "Sawed-Off-The-Kraken#56",
+     "name": "Sawed-Off | The Kraken",
+     "float": 0.014707694761455059
+    }
+   ],
+   "others": [
+    {
+     "float": 0.06666659563779831,
+     "share": 0.11666666666666667
+    }
+   ]
+  },
+  {
+   "label": "S 9-rep depth 3",
+   "target": 0.0009999989997595549,
+   "opts": {},
+   "candidates": 423,
+   "share": 1,
+   "landings": 1,
+   "nodes": 24197,
+   "subsets": 2,
+   "ms": 1.5882,
+   "verdict": "ROBUST",
+   "tier": "S",
+   "score": 70,
+   "difficulty": 9,
+   "order": [
+    {
+     "id": "R8-Revolver-Fade#13",
+     "name": "R8 Revolver | Fade",
+     "float": 0.0008820674265734851
+    },
+    {
+     "id": "R8-Revolver-Fade#11",
+     "name": "R8 Revolver | Fade",
+     "float": 0.0007917679031379521
+    },
+    {
+     "id": "R8-Revolver-Fade#5",
+     "name": "R8 Revolver | Fade",
+     "float": 0.00019958369375672191
+    },
+    {
+     "id": "R8-Revolver-Fade#2",
+     "name": "R8 Revolver | Fade",
+     "float": 0.00009023474558489397
+    },
+    {
+     "id": "AWP-Asiimov#2",
+     "name": "AWP | Asiimov",
+     "float": 0.1800745129585266
+    }
+   ],
+   "others": []
+  }
+ ],
+ "exactMisses": [
+  {
+   "label": "S 6-rep depth 3",
+   "target": 0.0006666660192422569,
+   "capped": false,
+   "candidates": 422
+  },
+  {
+   "label": "S 8-rep depth 3",
+   "target": 0.0008888880256563425,
+   "capped": false,
+   "candidates": 422
+  },
+  {
+   "label": "S 6-rep depth 3",
+   "target": 0.0006666600238531828,
+   "capped": false,
+   "candidates": 422
+  },
+  {
+   "label": "S 6-rep depth 4",
+   "target": 0.00006666660192422569,
+   "capped": false,
+   "candidates": 415
+  },
+  {
+   "label": "S 8-rep depth 4",
+   "target": 0.00008888880256563425,
+   "capped": false,
+   "candidates": 416
+  },
+  {
+   "label": "S 8-rep depth 5",
+   "target": 0.000008888800039130729,
+   "capped": false,
+   "candidates": 415
+  },
+  {
+   "label": "S 6-rep depth 5",
+   "target": 0.000006666599801974371,
+   "capped": false,
+   "candidates": 415
+  }
+ ],
+ "hunter": {
+  "bar": 0.002,
+  "ms": 2.8714,
+  "items": [
+   {
+    "id": "Sawed-Off-The-Kraken#8",
+    "name": "Sawed-Off | The Kraken",
+    "float": 0.0006699912482872605
+   },
+   {
+    "id": "R8-Revolver-Fade#13",
+    "name": "R8 Revolver | Fade",
+    "float": 0.0008820674265734851
+   },
+   {
+    "id": "R8-Revolver-Fade#10",
+    "name": "R8 Revolver | Fade",
+    "float": 0.0007637571543455124
+   },
+   {
+    "id": "R8-Revolver-Fade#11",
+    "name": "R8 Revolver | Fade",
+    "float": 0.0007917679031379521
+   },
+   {
+    "id": "R8-Revolver-Fade#12",
+    "name": "R8 Revolver | Fade",
+    "float": 0.0008581196889281273
+   }
+  ],
+  "lowest": [
+   {
+    "id": "AWP-Asiimov#1",
+    "name": "AWP | Asiimov",
+    "float": 0.1800111085176468
+   },
+   {
+    "id": "CZ75-Auto-Victoria#1",
+    "name": "CZ75-Auto | Victoria",
+    "float": 0.000014271161489887163
+   },
+   {
+    "id": "AWP-Asiimov#2",
+    "name": "AWP | Asiimov",
+    "float": 0.1800745129585266
+   },
+   {
+    "id": "SSG-08-Blood-in-the-Water#1",
+    "name": "SSG 08 | Blood in the Water",
+    "float": 0.06001361086964607
+   },
+   {
+    "id": "Sawed-Off-The-Kraken#1",
+    "name": "Sawed-Off | The Kraken",
+    "float": 0.0000652543967589736
+   }
+  ],
+  "keptBelow": 40
+ },
+ "floatlab": {
+  "pool": "CS:GO Weapon Case 3",
+  "inputs": 328,
+  "stats": {
+   "found": 1432,
+   "verified": 300,
+   "dropped": 0,
+   "capped": 1132
+  },
+  "ms": 109.7667,
+  "hits": [
+   {
+    "float": 0.004382666666060686,
+    "tier": "S",
+    "label": "6x 6",
+    "score": 153,
+    "share": 1,
+    "landings": 1,
+    "lo": 0,
+    "hi": 0.08,
+    "outs": [
+     "★ Karambit | Fade"
+    ],
+    "order": [
+     {
+      "id": "CZ75-Auto-Victoria#319",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.08577004075050354
+     },
+     {
+      "id": "CZ75-Auto-Victoria#39",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.020778745412826538
+     },
+     {
+      "id": "CZ75-Auto-Victoria#59",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.025345027446746826
+     },
+     {
+      "id": "CZ75-Auto-Victoria#226",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.050705187022686005
+     },
+     {
+      "id": "CZ75-Auto-Victoria#49",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.02283851057291031
+     }
+    ]
+   },
+   {
+    "float": 0.05978866666555405,
+    "tier": "S",
+    "label": "6x 6",
+    "score": 130,
+    "share": 1,
+    "landings": 1,
+    "lo": 0,
+    "hi": 1,
+    "outs": [
+     "★ Karambit | Case Hardened"
+    ],
+    "order": [
+     {
+      "id": "CZ75-Auto-Victoria#47",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.022566478699445724
+     },
+     {
+      "id": "CZ75-Auto-Victoria#306",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.07444034516811371
+     },
+     {
+      "id": "CZ75-Auto-Victoria#166",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.04353947937488556
+     },
+     {
+      "id": "CZ75-Auto-Victoria#132",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.038267213851213455
+     },
+     {
+      "id": "CZ75-Auto-Victoria#178",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.045393988490104675
+     }
+    ]
+   },
+   {
+    "float": 0.0666666179895401,
+    "tier": "S",
+    "label": "6x 6",
+    "score": 130,
+    "share": 1,
+    "landings": 1,
+    "lo": 0,
+    "hi": 1,
+    "outs": [
+     "★ Karambit | Case Hardened"
+    ],
+    "order": [
+     {
+      "id": "CZ75-Auto-Victoria#216",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.04996221140027046
+     },
+     {
+      "id": "CZ75-Auto-Victoria#232",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.05111284554004669
+     },
+     {
+      "id": "CZ75-Auto-Victoria#75",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.02822570689022541
+     },
+     {
+      "id": "CZ75-Auto-Victoria#58",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.024648109450936317
+     },
+     {
+      "id": "CZ75-Auto-Victoria#327",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.09605094790458679
+     }
+    ]
+   },
+   {
+    "float": 0.0050666662864387035,
+    "tier": "A",
+    "label": "5x 6",
+    "score": 123,
+    "share": 0.25,
+    "landings": 3,
+    "lo": 0,
+    "hi": 0.08,
+    "outs": [
+     "★ Karambit | Fade"
+    ],
+    "order": [
+     {
+      "id": "CZ75-Auto-Victoria#260",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.05423067882657051
+     },
+     {
+      "id": "CZ75-Auto-Victoria#253",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.052321478724479675
+     },
+     {
+      "id": "CZ75-Auto-Victoria#111",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.03485368192195892
+     },
+     {
+      "id": "CZ75-Auto-Victoria#27",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.0181701872497797
+     },
+     {
+      "id": "CZ75-Auto-Victoria#311",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.07792395353317261
+     }
+    ]
+   },
+   {
+    "float": 0.003958888817578554,
+    "tier": "A",
+    "label": "5x 8",
+    "score": 123,
+    "share": 0.8666666666666667,
+    "landings": 2,
+    "lo": 0,
+    "hi": 0.08,
+    "outs": [
+     "★ Karambit | Fade"
+    ],
+    "order": [
+     {
+      "id": "CZ75-Auto-Victoria#138",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.0392749086022377
+     },
+     {
+      "id": "CZ75-Auto-Victoria#264",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.05492432042956352
+     },
+     {
+      "id": "CZ75-Auto-Victoria#103",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.03376026824116707
+     },
+     {
+      "id": "CZ75-Auto-Victoria#18",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.012548314407467842
+     },
+     {
+      "id": "CZ75-Auto-Victoria#176",
+      "name": "CZ75-Auto | Victoria",
+      "float": 0.04506511613726616
+     }
+    ]
+   }
+  ]
+ },
+ "glitch": null,
+ "over": {
+  "T": 0.07000010029802323,
+  "ms": 1.8566,
+  "items": [
+   {
+    "id": "AK-47-Jaguar#3",
+    "name": "AK-47 | Jaguar",
+    "float": 0.23711642622947693
+   },
+   {
+    "id": "Sawed-Off-The-Kraken#86",
+    "name": "Sawed-Off | The Kraken",
+    "float": 0.022509535774588585
+   },
+   {
+    "id": "P2000-Fire-Elemental#24",
+    "name": "P2000 | Fire Elemental",
+    "float": 0.03157903254032135
+   },
+   {
+    "id": "R8-Revolver-Fade#17",
+    "name": "R8 Revolver | Fade",
+    "float": 0.0015859993873164058
+   },
+   {
+    "id": "AWP-Asiimov#1",
+    "name": "AWP | Asiimov",
+    "float": 0.1800111085176468
+   }
+  ]
+ }
+}
