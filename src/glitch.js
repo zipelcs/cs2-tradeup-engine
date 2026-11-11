@@ -26,12 +26,13 @@ export function glitchTargets(skins, which = 0) {
 /**
  * Scan craftable pools for a contract that lands exactly on a glitched float.
  * @param {object[]} pools   from custom.buildPools
- * @param {{which?:number, cap?:number, budgetMs?:number}} [opts]
+ * @param {{which?:number, cap?:number, budget?:number}} [opts]  cap: nodes per search; budget: nodes in total
  */
 export function glitchScan(pools, opts = {}) {
-  const g = GLITCH_FLOATS[opts.which || 0], hits = [], t0 = Date.now();
+  const g = GLITCH_FLOATS[opts.which || 0], hits = [], cap = opts.cap || 7e5;
+  let left = opts.budget || 2e7; // total node budget, so a scan is deterministic
   for (const P of pools) {
-    if (Date.now() - t0 > (opts.budgetMs || 9000)) break;
+    if (left <= 0) break;
     const fams = {};
     for (const o of P.outs) {
       if (o.max > o.min && g.float > o.min && g.float < o.max) {
@@ -41,7 +42,9 @@ export function glitchScan(pools, opts = {}) {
     }
     for (const G of Object.values(fams)) {
       const m = (g.float - G.lo) / (G.hi - G.lo), eps = 3 * 1.2e-7 / (G.hi - G.lo);
-      const hit = stepSolve(P.inputs, P.need, (m - eps) * P.need, (m + eps) * P.need, G.lo, G.hi, v => Object.is(v, g.float), opts.cap || 7e5);
+      if (left <= 0) break;
+      const hit = stepSolve(P.inputs, P.need, (m - eps) * P.need, (m + eps) * P.need, G.lo, G.hi, v => Object.is(v, g.float), Math.min(cap, left));
+      if (hit) left -= hit.nodes;
       if (hit && hit.float != null) hits.push({ pool: P.label, outs: G.outs, lo: G.lo, hi: G.hi, ...hit });
     }
   }

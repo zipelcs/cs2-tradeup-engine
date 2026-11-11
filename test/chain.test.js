@@ -55,3 +55,9 @@ test('no plan without four coverts and ten classifieds, or outside the target ra
   assert.equal(E.planChain(knife, TARGET, items.filter(x => x.id.startsWith('pink')), CAT), null);
   assert.equal(E.planChain(knife, 0.5, items, CAT), null);
 });
+
+test('the planner is deterministic: the same call gives the same plan, and budgets are counts', () => {
+  const a = E.planChain(knife, TARGET, items, CAT), b = E.planChain(knife, TARGET, items, CAT);
+  assert.deepEqual(a, b);
+  assert.equal(E.planChain(knife, TARGET, items, CAT, { capTen: 1 }), null); // one node is not enough
+});

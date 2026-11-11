@@ -11,6 +11,7 @@ export function adjust(raw, skinMin, skinMax) {
 
 /** Mean of adjusted floats exactly as the game forms it: float32 adds in insertion order, then a float32 divide. */
 export function meanAdjusted(adjs) {
+  if (!adjs || adjs.length === 0) throw new RangeError('meanAdjusted needs at least one input');
   let s = fr(0);
   for (const a of adjs) s = fr(s + fr(a));
   return fr(s / fr(adjs.length));
@@ -37,14 +38,16 @@ export const DECIMAL_EDGES = [0.07, 0.15, 0.38, 0.45];
 /** The game compares against float32 constants. 0.07f and 0.15f sit above their decimals; 0.38f and 0.45f sit below. */
 export const WEAR_EDGES = DECIMAL_EDGES.map(fr);
 
-/** Wear the game assigns to a float32 value. */
+/** Wear the game assigns to a float32 value. Throws on anything that is not a number (NaN included). */
 export function wearOf(f) {
+  if (typeof f !== 'number' || Number.isNaN(f)) throw new RangeError('wearOf needs a number, got ' + f);
   const i = WEAR_EDGES.findIndex(e => f < e);
   return WEARS[i < 0 ? 4 : i];
 }
 
 /** Wear a naive tool assigns by comparing against the decimal edges. */
 export function decimalWearOf(f) {
+  if (typeof f !== 'number' || Number.isNaN(f)) throw new RangeError('decimalWearOf needs a number, got ' + f);
   const i = DECIMAL_EDGES.findIndex(e => f < e);
   return WEARS[i < 0 ? 4 : i];
 }
@@ -66,8 +69,8 @@ export function glitchFloats(radius = 64) {
 }
 
 /**
- * The two glitched floats as constants. Stored as the upper band, read as the lower one. The first was
- * confirmed on an in-game exterior label; glitchFloats() re-derives both from the ladder.
+ * The two glitched floats as constants. Stored as the upper band, read as the lower one.
+ * glitchFloats() re-derives both from the ladder.
  */
 export const GLITCH_FLOATS = [
   { edge: 0.38, float: fr(0.38), reads: 'Field-Tested', is: 'Well-Worn' },
@@ -81,7 +84,8 @@ export function maxOfWear(index) {
 
 /**
  * A solver target that keeps a safety margin below a wear edge: `margin` float32 steps under the edge
- * (13 by default; observed order jitter is about 2 steps). Returns null when the output skin's range
+ * (13 by default). The margin is a starting point for the solver, which still checks every insertion
+ * order in float32 (maxfloat.settle). Returns null when the output skin's range
  * cannot reach that wear at all, so a 0.10-0.20 skin is never offered as Factory New.
  */
 export function safeCap(index, outMin, outMax, margin = 13) {

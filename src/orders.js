@@ -5,9 +5,8 @@ import { remap } from './remap.js';
  * Exact landing distribution over every insertion order.
  *
  * float32 addition is not associative, so the order you place items in the contract can change the
- * stored float, usually by a few adjacent steps. Ten inputs have 10! = 3,628,800 orders. Sampling them
- * gives wrong shares (a real craft sampled at 65.5% was 68.501% exactly), so this enumerates them all
- * with a subset DP instead of brute force:
+ * stored float, usually by a few adjacent steps. Ten inputs have 10! = 3,628,800 orders. A sample of
+ * them can miss a rare landing, so this enumerates them all with a subset DP instead of brute force:
  *
  *   state  = (bitmask of inputs already added, float32 bit pattern of the running sum)
  *   value  = number of orders that reach that state
@@ -22,6 +21,8 @@ import { remap } from './remap.js';
  * @returns {{float:number, orders:number, share:number, order:number[]}[]}  sorted by share, descending
  */
 export function landingDistribution(adjs, outMin, outMax) {
+  if (!Array.isArray(adjs) || adjs.length === 0) throw new RangeError('landingDistribution needs at least one input');
+  if (adjs.some(x => !Number.isFinite(+x))) throw new RangeError('landingDistribution needs finite adjusted floats');
   const n = adjs.length;
   if (n > 16) throw new RangeError('subset DP is meant for trade-up sizes (5 or 10 inputs)');
   const a = adjs.map(fr), full = (1 << n) - 1;

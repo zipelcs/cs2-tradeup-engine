@@ -5,8 +5,9 @@
 // stage 1 produces is random, so the plan is a decision table: for every covert that could drop, its
 // float, whether the target is still reachable, and the click order to use.
 //
-// Limits, stated plainly: it takes the first feasible set of four coverts instead of searching over
-// them, aims in float64 before verifying in float32, and returns one plan.
+// Limits: it takes the first feasible set of four coverts instead of searching over them, aims in
+// float64 before verifying in float32, and returns one plan. The search is bounded by node budgets
+// and a count of collections tried, never by the clock, so the same input always gives the same plan.
 //
 // One change from the original: the original took the first ten Classifieds inside the sum window and
 // only then checked the branches, so a plan depended on that first set happening to land. Here the
@@ -24,14 +25,15 @@ import { byName, isGold, collSkins } from './catalogue.js';
  * @param {number} targetFloat
  * @param {object[]} items      owned items { id, name, float, adj }
  * @param {object[]} catalogue
- * @param {{budgetMs?:number, capFour?:number, capTen?:number}} [opts]
+ * @param {{maxCollections?:number, capFour?:number, capTen?:number}} [opts]  iteration budgets
  * @returns {null | {crate, coll, target, four, ten, tenOrder, tenShare, branches, covered}}
  */
 export function planChain(target, targetFloat, items, catalogue, opts = {}) {
   if (!(target.max > target.min) || targetFloat < target.min || targetFloat > target.max) return null;
   const t = fr(targetFloat);
   const mStar = (t - target.min) / (target.max - target.min); // mean the final five must produce
-  const idx = byName(catalogue), t0 = Date.now(), budget = opts.budgetMs || 9000;
+  const idx = byName(catalogue), budget = opts.maxCollections || 64;
+  let tried = 0;
   for (const crate of target.crates || []) {
     const covs = items.filter(it => {
       const d = idx.get(it.name);
@@ -40,7 +42,7 @@ export function planChain(target, targetFloat, items, catalogue, opts = {}) {
     if (covs.length < 4) continue;
     const colls = new Set(covs.flatMap(c => idx.get(c.name).collections || []));
     for (const cl of colls) {
-      if (Date.now() - t0 > budget) return null;
+      if (tried++ >= budget) return null;
       const branchCoverts = collSkins(catalogue, cl, 'Covert').filter(s => s.max > s.min);
       if (!branchCoverts.length) continue;
       const pinks = items.filter(it => {
