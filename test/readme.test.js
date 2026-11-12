@@ -16,10 +16,9 @@ test('the usage example in the README runs and prints what it describes', () => 
   assert.equal(counts.reduce((a, b) => a + b, 0), 120);
 });
 
-test('the README keeps its opening line, its History section and its pointers', () => {
+test('the README keeps its opening line and its pointers', () => {
   const lines = readme.split('\n');
   assert.ok(lines[2].length > 0);
-  assert.equal(lines[4], '## History');
   assert.ok(readme.includes('docs/float-model.md'));
 });
 

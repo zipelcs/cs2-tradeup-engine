@@ -2,13 +2,7 @@
 
 Trade-up solvers for Counter-Strike 2 on an exact float32 engine.
 
-## History
-
-I built this tool as a single HTML file between June and August 2026. I assembled this repository from those builds in November 2026, so the original commit history is not here. Each commit before November carries the file time of the build its code first appeared in. The tests, notes and examples were written during the assembly, and the commits from 11 November carry the time they were made.
-
-## Where to start
-
-Read [docs/float-model.md](docs/float-model.md) first. It covers how the stored float of a trade-up is predicted, and what that prediction has and has not been checked against.
+Built between June and August 2026 and moved into this repository in November, so the early commits are dated by the build they come from.
 
 ## What it does
 
@@ -39,7 +33,7 @@ for (const l of landingDistribution(adjs, knife.min, knife.max)) {
 
 ## What it does not do
 
-- It does not optimise. The solvers are greedy passes with repair and local search. Several contracts from one pool are a sequential loop with an exclusion set.
+- The solvers are greedy passes with repair and local search, not a proven optimum.
 - It does not ship prices or fetch data. Any cost in the tests is invented, and pools are plain JSON.
 - It does not guarantee a craft. A landing reached by fewer than all orders can miss. The one recorded craft that missed was predicted from 68.501% of orders.
 
@@ -69,7 +63,7 @@ Node 18 or later, no dependencies.
 
 ## Notes and examples
 
-There is one note per subsystem in [docs/](docs/). After it, [insertion order](docs/insertion-order.md) and [testing](docs/testing.md) explain the most.
+There is one note per subsystem in [docs/](docs/). Start with the [float model](docs/float-model.md), then [insertion order](docs/insertion-order.md) and [testing](docs/testing.md).
 
 [examples/SHOWCASE.md](examples/SHOWCASE.md) runs the engine on real floats. `bench/accuracy.js` prints every percentage the notes quote.
 
