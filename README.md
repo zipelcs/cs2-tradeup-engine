@@ -1,6 +1,6 @@
 # cs2-tradeup-engine
 
-OPENING: Oliver writes this.
+Trade-up solvers for Counter-Strike 2 on an exact float32 engine.
 
 ## History
 
@@ -8,7 +8,7 @@ I built this tool as a single HTML file between June and August 2026. I assemble
 
 ## Where to start
 
-Read [docs/pricing.md](docs/pricing.md) and [docs/float-model.md](docs/float-model.md) first. The pricing note covers how a float gets a price from a purchase history. The float model note covers how the stored float of a trade-up is predicted, and what that prediction has and has not been checked against.
+Read [docs/float-model.md](docs/float-model.md) first. It covers how the stored float of a trade-up is predicted, and what that prediction has and has not been checked against.
 
 ## What it does
 
@@ -18,7 +18,6 @@ Read [docs/pricing.md](docs/pricing.md) and [docs/float-model.md](docs/float-mod
 - Lands on one exact float32 value and says how many orders reach it.
 - Picks the contract that beats a record float while keeping the best copies back.
 - Ranks the rare floats a pool can craft, and plans a two-stage craft when the fifth input has to be made first.
-- Prices floats from a purchase history and scores contracts by expected value, behind a price function you supply.
 
 ## Usage
 
@@ -41,7 +40,7 @@ for (const l of landingDistribution(adjs, knife.min, knife.max)) {
 ## What it does not do
 
 - It does not optimise. The solvers are greedy passes with repair and local search. Several contracts from one pool are a sequential loop with an exclusion set.
-- It does not ship prices or fetch data. Every price here is an invented sample, and pools are plain JSON.
+- It does not ship prices or fetch data. Any cost in the tests is invented, and pools are plain JSON.
 - It does not guarantee a craft. A landing reached by fewer than all orders can miss. The one recorded craft that missed was predicted from 68.501% of orders.
 
 ## Run
@@ -65,20 +64,17 @@ Node 18 or later, no dependencies.
 | `hunter` | target check and the maximin pick |
 | `floatlab-constants`, `floatlab` | constant targets, then the rare-float tiers and score |
 | `chain`, `glitch` | two-stage planner, glitch-wear targets and scan |
-| `listing`, `profit`, `montecarlo`, `premium`, `patterns` | tools behind a price function |
-| `parsers` | purchase text parsers, multi-page import |
-| `catalogue`, `names`, `phase` | catalogue helpers, name resolver, Doppler phase lookup |
+| `listing` | cheapest inputs against a threshold, behind a cost you supply |
+| `catalogue`, `phase` | catalogue helpers, Doppler phase lookup |
 
 ## Notes and examples
 
-There is one note per subsystem in [docs/](docs/). After the two above, [insertion order](docs/insertion-order.md) and [testing](docs/testing.md) explain the most.
+There is one note per subsystem in [docs/](docs/). After it, [insertion order](docs/insertion-order.md) and [testing](docs/testing.md) explain the most.
 
 [examples/SHOWCASE.md](examples/SHOWCASE.md) runs the engine on real floats. `bench/accuracy.js` prints every percentage the notes quote.
 
 ## Credit and licence
 
 floatjitsu, for the reference vector and for first showing that insertion order changes the result.
-
-The fade seed calculation in `patterns` is a port of chescos/csgo-fade-percentage-calculator (MIT). See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 The source is published to be read. See [LICENSE](LICENSE).
